@@ -1,0 +1,16 @@
+{
+  "name": "prelivewind",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "voliva <olivarra1@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "webpack"
+  },
+  "dependencies": {
+    "preact": "^8.2.5",
+    "ts-loader": "^2.3.7",
+    "typescript": "^2.5.2",
+    "webpack": "^3.6.0"
+  }
+}
