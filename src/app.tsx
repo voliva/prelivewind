@@ -1,6 +1,12 @@
 import { h, Component, render } from 'preact';
+import { Dispatch } from 'redux';
+import { connect, Provider } from 'preact-redux'
 import SelectedStationsSummary from './selectedStations/summary';
+import store from './redux/store';
+import { NavigationView, navigate } from './redux/actions';
+import { LWState } from './redux/stateType';
 
+/*
 enum MainView {
     SelectedStationsSummary,
     StationList
@@ -23,5 +29,28 @@ class PreLivewind extends Component<{}, {
         }
     }
 }
+*/
 
-render(<PreLivewind />, document.querySelector('#app'));
+const mapStateToProps = (state:LWState) => ({
+    currentView: state.currentView
+});
+
+const mapDispatchToProps = (dispatch:Dispatch<LWState>) => ({
+    onStationListMenuClicked: () => {
+        dispatch(navigate(NavigationView.StationList));
+    }
+});
+
+const PreLivewind = ({currentView, onStationListMenuClicked}) => {
+    switch(currentView) {
+        case NavigationView.SelectedStations:
+            return <SelectedStationsSummary stations={['a','b','c']} />;
+        default:
+            return <div>Unkown view :(</div>
+    }
+}
+
+const App = connect(mapStateToProps, mapDispatchToProps)(PreLivewind);
+render(<Provider store={store}>
+    <App />
+</Provider>, document.querySelector('#app'));
