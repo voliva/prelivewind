@@ -5,14 +5,18 @@
   "author": "voliva <olivarra1@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "webpack"
+    "start": "webpack --watch",
+    "buildProd": "webpack -p"
   },
   "dependencies": {
     "preact": "^8.2.5",
     "preact-redux": "^2.0.2",
-    "redux": "^3.7.2",
+    "redux": "^3.7.2"
+  },
+  "devDependencies": {
     "ts-loader": "^2.3.7",
     "typescript": "^2.5.2",
-    "webpack": "^3.6.0"
+    "webpack": "^3.6.0",
+    "webpack-livereload-plugin": "^0.11.0"
   }
 }

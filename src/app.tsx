@@ -44,7 +44,7 @@ const mapDispatchToProps = (dispatch:Dispatch<LWState>) => ({
 const PreLivewind = ({currentView, onStationListMenuClicked}) => {
     switch(currentView) {
         case NavigationView.SelectedStations:
-            return <SelectedStationsSummary stations={['a','b','c']} />;
+            return <SelectedStationsSummary stations={['b','c','d']} />;
         default:
             return <div>Unkown view :(</div>
     }
