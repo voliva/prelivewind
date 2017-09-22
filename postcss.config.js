@@ -3,6 +3,7 @@ module.exports = {
     plugins: {
         'postcss-import': {},
         'postcss-cssnext': {},
+        'postcss-color-alpha': {},
         'cssnano': {}
     }
 }

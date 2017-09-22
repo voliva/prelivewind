@@ -1,54 +1,42 @@
-import { h, Component, render } from 'preact';
+import { h, render } from 'preact';
 import { Dispatch } from 'redux';
-import { connect, Provider } from 'preact-redux'
+import { connect, Provider } from 'preact-redux';
 import SelectedStationsSummary from './selectedStations/summary';
 import store from './redux/store';
-import { NavigationView, navigate } from './redux/actions';
+import { NavigationView, acceptCookies } from './redux/actions';
 import { LWState } from './redux/stateType';
-import './index.css';
-
-/*
-enum MainView {
-    SelectedStationsSummary,
-    StationList
-}
-
-class PreLivewind extends Component<{}, {
-    currentView: MainView
-}> {
-    constructor() {
-        super();
-        this.state = {
-            currentView: MainView.SelectedStationsSummary
-        }
-    }
-    render(props, state) {
-        if(state.currentView == MainView.SelectedStationsSummary) {
-            return <SelectedStationsSummary stations={['a','b','c']} />
-        }else {
-            return <div>WTF?</div>
-        }
-    }
-}
-*/
+import './app.css';
+import Header from './header';
+import CookiePolicy from './cookiePolicy';
 
 const mapStateToProps = (state:LWState) => ({
-    currentView: state.currentView
+    currentView: state.currentView,
+    hasAcceptedCookies: state.hasAcceptedCookies
 });
 
 const mapDispatchToProps = (dispatch:Dispatch<LWState>) => ({
-    onStationListMenuClicked: () => {
-        dispatch(navigate(NavigationView.StationList));
+    onCookieDismiss: () => {
+        dispatch(acceptCookies());
     }
 });
 
-const PreLivewind = ({currentView, onStationListMenuClicked}) => {
+const getView = (currentView:NavigationView) => {
     switch(currentView) {
         case NavigationView.SelectedStations:
             return <SelectedStationsSummary stations={['b','c','d']} />;
         default:
             return <div>Unkown view :(</div>
     }
+}
+
+const PreLivewind = ({currentView, hasAcceptedCookies, onCookieDismiss}) => {
+    return <div className='livewind'>
+        <Header />
+        <div className='livewind__content'>
+            { getView(currentView) }
+        </div>
+        {!hasAcceptedCookies && <CookiePolicy onDismiss={onCookieDismiss} /> }
+    </div>
 }
 
 const App = connect(mapStateToProps, mapDispatchToProps)(PreLivewind);

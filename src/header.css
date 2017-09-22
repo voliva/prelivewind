@@ -1,0 +1,16 @@
+@import './variables.css';
+
+.app-header {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    height: var(--headerHeight);
+    background: var(--colorGray);
+    text-align: center;
+    font-size: var(--bigFontSize);
+    height: var(--headerHeight);
+    line-height: var(--headerHeight);
+    font-weight: bold;
+    z-index: 1;
+}

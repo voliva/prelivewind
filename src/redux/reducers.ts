@@ -11,6 +11,14 @@ function currentView(state:NavigationView = null, action: Action):NavigationView
     return state;
 }
 
+function hasAcceptedCookies(state:boolean = null, action: Action):boolean {
+    if(action.type == ActionType.AcceptCookies) {
+        return true;
+    }
+    return state;
+}
+
 export default combineReducers({
-    currentView
+    currentView,
+    hasAcceptedCookies
 });

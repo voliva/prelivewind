@@ -1,0 +1,11 @@
+:root {
+    --headerHeight: 39px;
+    --baseFontSize: 14px;
+    --bigFontSize: 16px;
+    --smallFontSize: 12px;
+    --colorNotWhite: #F5F6FA;
+    --colorGray: #E5E8EB;
+    --colorLivewind: #466789;
+    --colorDarkLivewind: #2D4258;
+    --colorDefaultText: #090C10;
+}

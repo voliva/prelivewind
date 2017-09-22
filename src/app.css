@@ -1,0 +1,13 @@
+@import './variables.css';
+
+body {
+    font-family: sans-serif;
+    font-size: var(--baseFontSize);
+    user-select: none;
+    margin: 0;
+    background: var(--colorNotWhite);
+}
+
+.livewind__content {
+    padding-top: var(--headerHeight);
+}

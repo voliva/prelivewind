@@ -1,7 +1,8 @@
 import { NavigationView } from './actions';
 
 interface LWState {
-    currentView?: NavigationView
+    currentView?: NavigationView,
+    hasAcceptedCookies?: boolean
 }
 
 export { LWState }

@@ -2,7 +2,8 @@ import { NavigationView } from './actions';
 
 enum ActionType {
     NavigationAction = 'NavigationAction',
-    AddStationAction = 'AddStationAction'
+    AddStationAction = 'AddStationAction',
+    AcceptCookies = 'AcceptCookies'
 }
 
 interface BaseAction {
@@ -17,6 +18,9 @@ interface AddStationAction extends BaseAction {
     type: ActionType.AddStationAction;
     station: any; // TODO
 }
+interface AcceptCookies extends BaseAction {
+    type: ActionType.AcceptCookies
+}
 
-type Action = NavigationAction | AddStationAction;
+type Action = AcceptCookies | NavigationAction | AddStationAction;
 export {ActionType, Action, NavigationAction};
