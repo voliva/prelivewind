@@ -18,6 +18,15 @@ module.exports = {
                 test: /\.tsx?$/,
                 exclude: /node_modules/,
                 loaders: ['ts-loader']
+            },
+            {
+                test: /\.css$/,
+                exclude: /node_modules/,
+                loaders: [
+                    'style-loader',
+                    { loader: 'css-loader', options: { importLoaders: 1 } },
+                    'postcss-loader'
+                ]
             }
         ]
     },

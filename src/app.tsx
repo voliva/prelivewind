@@ -5,6 +5,7 @@ import SelectedStationsSummary from './selectedStations/summary';
 import store from './redux/store';
 import { NavigationView, navigate } from './redux/actions';
 import { LWState } from './redux/stateType';
+import './index.css';
 
 /*
 enum MainView {
