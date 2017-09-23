@@ -10,6 +10,7 @@
     "buildProd": "webpack -p"
   },
   "dependencies": {
+    "classnames": "^2.2.5",
     "preact": "^8.2.5",
     "preact-redux": "^2.0.2",
     "redux": "^3.7.2",
