@@ -39,7 +39,9 @@ const PreLivewind = ({currentView, hasAcceptedCookies, onCookieDismiss}) => {
     </div>
 }
 
+const app = document.querySelector('#app');
+const splash = app.querySelector('.splash');
 const App = connect(mapStateToProps, mapDispatchToProps)(PreLivewind);
 render(<Provider store={store}>
     <App />
-</Provider>, document.querySelector('#app'));
+</Provider>, app, splash);

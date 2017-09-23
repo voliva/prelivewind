@@ -5,10 +5,32 @@
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <style type="text/css">
+        body {
+            font-family: sans-serif;
+            font-size: 14px; /* var(--baseFontSize); */
+            user-select: none;
+            margin: 0;
+            background: #F5F6FA; /* var(--colorNotWhite); */
+        }
+        .app-header {
+            height: 39px; /* var(--headerHeight); */
+            background: #E5E8EB; /* var(--colorGray); */
+            text-align: center;
+            font-size: 16px; /* var(--bigFontSize); */
+            line-height: 39px; /* var(--headerHeight) */;
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
-<div id="app"></div>
+<div id="app">
+    <div class="splash">
+        <header class="app-header">Livewind</header>
+        <div class="livewind__content"></div>
+    </div>
+</div>
 <script src="dist/app.js"></script>
-<script src="http://localhost:35729/livereload.js"></script>
+<!--<script src="http://localhost:35729/livereload.js"></script>-->
 </body>
 </html>
