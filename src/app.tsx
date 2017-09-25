@@ -21,9 +21,22 @@ const mapDispatchToProps = (dispatch:Dispatch<LWState>) => ({
 });
 
 const getView = (currentView:NavigationView) => {
+    const stations = [{
+        id:null,
+        name:null,
+        lastData:null
+    },{
+        id:null,
+        name:null,
+        lastData:null
+    },{
+        id:null,
+        name:null,
+        lastData:null
+    }];
     switch(currentView) {
         case NavigationView.SelectedStations:
-            return <SelectedStationsSummary stations={['b','c','d']} />;
+            return <SelectedStationsSummary stations={stations} />;
         default:
             return <div>Unkown view :(</div>
     }

@@ -1,36 +1,27 @@
 import { h, Component } from 'preact';
 import {
-    AccordionBody,
-    AccordionHeader,
-    AccordionItem,
-    AccordionList
+    AccordionList,
+    AccordionListItem
 } from '../components/accordionList';
+import StationSummary from './stationSummary';
+import StationLine from './stationLine';
+import Station from '../services/station';
 
-export default class SelectedStationsSummary extends Component<{
-    stations: string[]
-}, {}> {
+interface SelectedStationsSummaryProps {
+    stations: Station[]
+}
+
+export default class SelectedStationsSummary extends Component<SelectedStationsSummaryProps, {}> {
 
     constructor() {
         super();
     }
 
-    render(props) {
-        return <div>
-            <AccordionList>
-                <AccordionItem className={'prova'}>
-                    <AccordionHeader>Header
-                    </AccordionHeader>
-                    <AccordionBody>Body
-                    </AccordionBody>
-                </AccordionItem>
-                <AccordionItem>
-                    <AccordionHeader>Header
-                    </AccordionHeader>
-                    <AccordionBody>Body
-                    </AccordionBody>
-                </AccordionItem>
-            </AccordionList>
-            {props.stations.map(s => <div>{s}</div>)}
-        </div>
+    render(props:SelectedStationsSummaryProps) {
+        const items:AccordionListItem[] = props.stations.map(s => ({
+            header: <StationLine station={s} />,
+            body: <StationSummary station={s} />
+        }));
+        return <AccordionList items={items} />
     }
 }

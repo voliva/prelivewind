@@ -1,25 +1,20 @@
-import { h, Component } from 'preact';
+import { h, Component, ComponentProps, cloneElement } from 'preact';
 import * as classnames from 'classnames';
 import './accordionList.css';
 
-/*
-<AccordionList>
-    <AccordionItem>
-        <AccordionHeader>
-        </AccordionHeader>
-        <AccordionBody>
-        </AccordionBody>
-    </AccordionItem>
-</AccordionList>
-*/
+interface AccordionListItem {
+    header: JSX.Element;
+    body: JSX.Element;
+}
 
-const AccordionItem = (props) => <div {...props} className={classnames('accordion-item', props.className)} />;
-const AccordionHeader = (props) => <div {...props} className={classnames('accordion-header', props.className)} />;
-const AccordionBody = (props) => <div {...props} className={classnames('accordion-body', props.className)} />;
-
-export default class AccordionList extends Component<{}, {
+interface AccordionListProps extends ComponentProps<AccordionList> {
+    items: AccordionListItem[]
+}
+interface AccordionListState {
     focusedItemIndex: number
-}> {
+}
+
+export default class AccordionList extends Component<AccordionListProps, AccordionListState> {
     constructor() {
         super();
         this.state = {
@@ -28,40 +23,34 @@ export default class AccordionList extends Component<{}, {
     }
 
     private _onHeaderClick = (index:number) => {
-        this.setState((state) => ({
+        this.setState((state) => state.focusedItemIndex === index ? {
+            ...state,
+            focusedItemIndex: null
+        } : {
             ...state,
             focusedItemIndex: index
-        }));
+        });
     }
 
-    render(props, state) {
-        if(!props.children.every(c => typeof c.nodeName === 'function')) {
-            throw new Error('Al children of <AccordionList> must be <AccordionItem>');
-        }
-        if(!props.children.every(c => c.children.length == 2 &&
-            c.children[0].nodeName == AccordionHeader as any &&
-            c.children[1].nodeName == AccordionBody as any)) {
-            throw new Error('Al children of <AccordionItem> must have 1 <AccordionHeader> and 1 <AccordionItem>');
-        }
-
+    render(props:AccordionListProps, state:AccordionListState) {
         return <div>
-            { props.children.map((c, i) =>
-            <AccordionItem {...c.attributes} className={classnames({
+            { props.items.map(({header, body}, i) =>
+            <div className={classnames('accordion-item', {
                 selected: i === state.focusedItemIndex
             })}>
-                {[
-                    <AccordionHeader {...c.children[0].attributes} onClick={(evt) => this._onHeaderClick(i)}>
-                        {...c.children[0].children}
-                    </AccordionHeader>
-                , c.children[1]] }
-            </AccordionItem>) }
+                {cloneElement(header, {
+                    className: classnames('accordion-header', header.attributes.className),
+                    onClick: () => this._onHeaderClick(i)
+                })}
+                {cloneElement(body, {
+                    className: classnames('accordion-body', body.attributes.className)
+                })}
+            </div>) }
         </div>;
     }
 }
 
 export {
-    AccordionBody,
-    AccordionHeader,
-    AccordionItem,
-    AccordionList
+    AccordionList,
+    AccordionListItem
 }
