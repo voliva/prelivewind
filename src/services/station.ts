@@ -3,7 +3,7 @@ import StationData from './stationData';
 interface Station {
     id: string;
     name: string;
-    lastData: StationData;
+    lastData?: StationData;
 }
 
 export default Station
