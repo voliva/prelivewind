@@ -10,7 +10,7 @@ const mapDispatchToProps = (dispatch:Dispatch<LWState>) => ({
 });
 
 const Template = ({}) => {
-    <div>Template</div>
+    return <div>Template</div>
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Template);

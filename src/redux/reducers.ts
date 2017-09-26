@@ -1,5 +1,4 @@
-import { NavigationView } from './actions';
-import { LWState, Station } from './stateType';
+import { LWState, Station, NavigationView } from './stateType';
 import { Action, ActionType } from './actionTypes';
 import { combineReducers } from 'redux';
 

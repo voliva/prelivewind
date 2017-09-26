@@ -1,11 +1,10 @@
 import { compose, createStore } from 'redux';
 import * as persistState from 'redux-localstorage'
-import { LWState } from './stateType';
-import { NavigationView } from './actions';
+import { LWState, NavigationView } from './stateType';
 import livewind from './reducers';
 
 const initialState:LWState = {
-    currentView: NavigationView.SelectedStations,
+    currentView: NavigationView.StationList,
     hasAcceptedCookies: false,
     stationListSelectedTab: 'fav',
     stationList: [{
@@ -62,6 +61,11 @@ const initialState:LWState = {
         }
     }]
 }
+
+initialState.stationList = initialState.stationList
+    .concat(initialState.stationList)
+    .concat(initialState.stationList)
+    .concat(initialState.stationList);
 
 const store = createStore(livewind, initialState, compose(
     persistState()

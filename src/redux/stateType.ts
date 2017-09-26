@@ -1,12 +1,16 @@
-import { NavigationView } from './actions';
 import StationModel from '../services/station';
 import StationData from '../services/stationData';
 
 interface LWState {
-    currentView: NavigationView,
-    hasAcceptedCookies: boolean,
-    stationListSelectedTab: string
-    stationList: Station[]
+    currentView: NavigationView;
+    hasAcceptedCookies: boolean;
+    stationListSelectedTab: string;
+    stationList: Station[];
+}
+
+enum NavigationView {
+    StationList,
+    StationDetail
 }
 
 interface Station extends StationModel {
@@ -14,4 +18,4 @@ interface Station extends StationModel {
     lastData: StationData;
 }
 
-export { LWState, Station }
+export { LWState, Station, NavigationView }

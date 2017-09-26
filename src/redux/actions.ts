@@ -1,13 +1,8 @@
 import { ActionType, Action } from './actionTypes';
-
-export enum NavigationView {
-    SelectedStations,
-    StationList,
-    StationDetail
-}
+import { NavigationView } from './stateType';
 
 export function navigate(view:NavigationView):Action {
-    return { type: ActionType.NavigationAction, view };
+    return { type: ActionType.Navigation, view };
 }
 export function acceptCookies():Action {
     return { type: ActionType.AcceptCookies };

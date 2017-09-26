@@ -10,5 +10,15 @@ body {
 }
 
 .livewind__content {
-    padding-top: var(--headerHeight);
+    position: absolute;
+    top: var(--headerHeight);
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+}
+
+.livewind__page {
+    height: 100%;
+    overflow: auto;
 }
