@@ -6,6 +6,7 @@ body {
     user-select: none;
     margin: 0;
     background: var(--colorNotWhite);
+    color: var(--colorDefaultText);
 }
 
 .livewind__content {

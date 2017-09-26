@@ -12,4 +12,6 @@
     font-size: var(--bigFontSize);
     font-weight: bold;
     z-index: 1;
+    border-bottom: 1px solid var(--colorLivewind);
+    color: var(--colorDarkLivewind);
 }

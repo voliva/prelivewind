@@ -3,7 +3,8 @@ import { NavigationView } from './actions';
 enum ActionType {
     NavigationAction = 'NavigationAction',
     AddStationAction = 'AddStationAction',
-    AcceptCookies = 'AcceptCookies'
+    AcceptCookies = 'AcceptCookies',
+    SwitchStationListSelectedTab = 'SwitchStationListSelectedTab'
 }
 
 interface BaseAction {
@@ -21,6 +22,10 @@ interface AddStationAction extends BaseAction {
 interface AcceptCookies extends BaseAction {
     type: ActionType.AcceptCookies
 }
+interface SwitchStationListSelectedTab extends BaseAction {
+    type: ActionType.SwitchStationListSelectedTab;
+    tabId: string;
+}
 
-type Action = AcceptCookies | NavigationAction | AddStationAction;
-export {ActionType, Action, NavigationAction};
+type Action = SwitchStationListSelectedTab | AcceptCookies | NavigationAction | AddStationAction;
+export {ActionType, Action};

@@ -1,0 +1,23 @@
+@import '../variables.css';
+
+.tab-strip {
+    background: var(--colorGray);
+    display: flex;
+    flex-direction: row;
+}
+
+.tab-strip__tab {
+    flex: 1 1;
+    text-align: center;
+    line-height: var(--headerHeight);
+    /* text-transform: uppercase; */
+    border-bottom: 1px solid var(--colorDarkGray);
+    color: var(--colorLivewind);
+}
+
+.tab-strip__tab--selected {
+    font-weight: bold;
+    background: var(--colorDarkGray);
+    color: var(--colorDarkLivewind);
+    border-color: var(--colorDarkLivewind);
+}

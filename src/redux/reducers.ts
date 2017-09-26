@@ -1,5 +1,5 @@
 import { NavigationView } from './actions';
-import { LWState } from './stateType';
+import { LWState, Station } from './stateType';
 import { Action, ActionType } from './actionTypes';
 import { combineReducers } from 'redux';
 
@@ -18,7 +18,20 @@ function hasAcceptedCookies(state:boolean = null, action: Action):boolean {
     return state;
 }
 
+function stationListSelectedTab(state:string = null, action: Action):string {
+    if(action.type == ActionType.SwitchStationListSelectedTab) {
+        return action.tabId;
+    }
+    return state;
+}
+
+function stationList(state:Station[] = null, action: Action):Station[] {
+    return state;
+}
+
 export default combineReducers({
     currentView,
-    hasAcceptedCookies
+    hasAcceptedCookies,
+    stationListSelectedTab,
+    stationList
 });

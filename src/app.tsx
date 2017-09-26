@@ -1,7 +1,7 @@
 import { h, render } from 'preact';
 import { Dispatch } from 'redux';
 import { connect, Provider } from 'preact-redux';
-import SelectedStationsSummary from './selectedStations/summary';
+import StationList from './stationList/stationList';
 import store from './redux/store';
 import { NavigationView, acceptCookies } from './redux/actions';
 import { LWState } from './redux/stateType';
@@ -21,35 +21,9 @@ const mapDispatchToProps = (dispatch:Dispatch<LWState>) => ({
 });
 
 const getView = (currentView:NavigationView) => {
-    const stations = [{
-        id:null,
-        name:'Torredembarra',
-        lastData: {
-            timestamp: 0,
-            wind: 10,
-            gust: 12,
-            direction: 275
-        }
-    },{
-        id:null,
-        name:'Altafulla',
-        lastData: {
-            timestamp: 0,
-            wind: 9.13246565498,
-            direction: 275
-        }
-    },{
-        id:null,
-        name:'Barcelona',
-        lastData: {
-            timestamp: 0,
-            wind: 11,
-            gust: 15
-        }
-    }];
     switch(currentView) {
         case NavigationView.SelectedStations:
-            return <SelectedStationsSummary stations={stations} />;
+            return <StationList />;
         default:
             return <div>Unkown view :(</div>
     }
