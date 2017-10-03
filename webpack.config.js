@@ -15,13 +15,18 @@ module.exports = {
     module: {
         loaders: [
             {
+                test: /\.(png|woff|woff2|eot|ttf|svg)$/,
+                loaders: [
+                    'url-loader'
+                ]
+            },
+            {
                 test: /\.tsx?$/,
                 exclude: /node_modules/,
                 loaders: ['ts-loader']
             },
             {
                 test: /\.css$/,
-                exclude: /node_modules/,
                 loaders: [
                     'style-loader',
                     { loader: 'css-loader', options: { importLoaders: 1 } },

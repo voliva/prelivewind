@@ -1,7 +1,8 @@
-import { NavigationView } from './actions';
+import { View } from './stateType';
 
 enum ActionType {
     Navigation = 'Navigation',
+    NavigationBack = 'NavigationBack',
     AcceptCookies = 'AcceptCookies',
     SwitchStationListSelectedTab = 'SwitchStationListSelectedTab'
 }
@@ -12,7 +13,10 @@ interface BaseAction {
 
 interface Navigation extends BaseAction {
     type: ActionType.Navigation;
-    view: NavigationView;
+    view: View;
+}
+interface NavigationBack extends BaseAction {
+    type: ActionType.NavigationBack;
 }
 interface AcceptCookies extends BaseAction {
     type: ActionType.AcceptCookies
@@ -22,5 +26,5 @@ interface SwitchStationListSelectedTab extends BaseAction {
     tabId: string;
 }
 
-type Action = SwitchStationListSelectedTab | AcceptCookies | Navigation;
+type Action = SwitchStationListSelectedTab | AcceptCookies | Navigation | NavigationBack;
 export {ActionType, Action};

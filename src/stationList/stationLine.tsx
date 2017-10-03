@@ -4,7 +4,7 @@ import * as classnames from 'classnames';
 
 interface StationLineProps extends ComponentProps<any> {
     station: Station,
-    onClick?: () => void,
+    onClick?: (s:Station) => void,
     className?: any
 }
 
@@ -30,7 +30,7 @@ const StationLine = (props:StationLineProps) => {
             {formatNumber(lastData.gust)}kts
         </div> : null;
 
-    return <div onClick={props.onClick} className={classnames('station-header', props.className)}>
+    return <div onClick={() => props.onClick(props.station)} className={classnames('station-header', props.className)}>
         <div className='station-header__name'>{props.station.name}</div>
         <div className='station-header__wind'>
             {windLine}

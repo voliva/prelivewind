@@ -1,7 +1,7 @@
 import { h } from 'preact';
 import { Dispatch } from 'redux';
 import { connect } from 'preact-redux';
-import { LWState, Station, NavigationView } from '../redux/stateType';
+import { LWState, Station, NavigationViewEnum } from '../redux/stateType';
 import { switchStationListSelectedTab, navigate } from '../redux/actions';
 import StationLine from './stationLine';
 import TabStrip from '../components/tabStrip';
@@ -12,7 +12,7 @@ interface SelectedStationsSummaryProps {
     stations: Station[],
     selectedTabId: string,
     switchSelectedTab: (tabId:string) => void;
-    onStationClick: () => void;
+    onStationClick: (s:Station) => void;
     className?: string;
 }
 
@@ -25,8 +25,8 @@ const mapDispatchToProps = (dispatch:Dispatch<LWState>) => ({
     switchSelectedTab: (tabId:string) => {
         dispatch(switchStationListSelectedTab(tabId));
     },
-    onStationClick: () => {
-        dispatch(navigate(NavigationView.StationDetail));
+    onStationClick: (s:Station) => {
+        dispatch(navigate(NavigationViewEnum.StationDetail, s));
     }
 });
 

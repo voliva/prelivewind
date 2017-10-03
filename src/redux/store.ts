@@ -1,10 +1,13 @@
 import { compose, createStore } from 'redux';
 import * as persistState from 'redux-localstorage'
-import { LWState, NavigationView } from './stateType';
+import { LWState, NavigationViewEnum } from './stateType';
 import livewind from './reducers';
 
 const initialState:LWState = {
-    currentView: NavigationView.StationList,
+    currentView: {
+        view: NavigationViewEnum.StationList
+    },
+    viewStack: [],
     hasAcceptedCookies: false,
     stationListSelectedTab: 'fav',
     stationList: [{

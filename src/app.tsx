@@ -3,43 +3,54 @@ import { Dispatch } from 'redux';
 import { connect, Provider } from 'preact-redux';
 import StationList from './stationList/stationList';
 import store from './redux/store';
-import { acceptCookies } from './redux/actions';
-import { LWState,NavigationView } from './redux/stateType';
+import { acceptCookies, navigateBack } from './redux/actions';
+import { LWState, NavigationViewEnum } from './redux/stateType';
 import './app.css';
+import '../node_modules/typicons.font/src/font/typicons.css';
 import * as classnames from 'classnames';
 import Header from './header';
 import CookiePolicy from './cookiePolicy';
 import StationDetail from './stationDetail/stationDetail';
 
-const mapStateToProps = (state:LWState) => ({
+const mapStateToProps = (state:LWState) => console.log(state) || ({
     currentView: state.currentView,
-    hasAcceptedCookies: state.hasAcceptedCookies
+    hasAcceptedCookies: state.hasAcceptedCookies,
+    viewStack: state.viewStack
 });
 
 const mapDispatchToProps = (dispatch:Dispatch<LWState>) => ({
     onCookieDismiss: () => {
         dispatch(acceptCookies());
+    },
+    onBackClick: () => {
+        dispatch(navigateBack());
     }
 });
 
-const getView = (currentView:NavigationView) => {
+const getView = (currentView:NavigationViewEnum) => {
     const className = classnames('livewind__page', {
     });
     switch(currentView) {
-        case NavigationView.StationList:
+        case NavigationViewEnum.StationList:
             return <StationList className={className}/>;
-        case NavigationView.StationDetail:
+        case NavigationViewEnum.StationDetail:
             return <StationDetail className={className}/>;
         default:
             return <div>Unkown view :(</div>
     }
 }
 
-const PreLivewind = ({currentView, hasAcceptedCookies, onCookieDismiss}) => {
+const PreLivewind = ({currentView, viewStack, hasAcceptedCookies, onCookieDismiss, onBackClick}) => {
+    const headerTitle = currentView.view === NavigationViewEnum.StationDetail ?
+        currentView.params.name : 'Livewind';
+
     return <div className='livewind'>
-        <Header />
+        <Header
+            title={headerTitle}
+            hasBackButton={viewStack.length > 0}
+            onBackClick={onBackClick} />
         <div className='livewind__content'>
-            { getView(currentView) }
+            { getView(currentView.view) }
         </div>
         {!hasAcceptedCookies && <CookiePolicy onDismiss={onCookieDismiss} /> }
     </div>

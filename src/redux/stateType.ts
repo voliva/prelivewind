@@ -2,13 +2,18 @@ import StationModel from '../services/station';
 import StationData from '../services/stationData';
 
 interface LWState {
-    currentView: NavigationView;
+    currentView: View;
+    viewStack: View[];
     hasAcceptedCookies: boolean;
     stationListSelectedTab: string;
     stationList: Station[];
 }
 
-enum NavigationView {
+interface View {
+    view: NavigationViewEnum;
+    parms?: any;
+}
+enum NavigationViewEnum {
     StationList,
     StationDetail
 }
@@ -18,4 +23,4 @@ interface Station extends StationModel {
     lastData: StationData;
 }
 
-export { LWState, Station, NavigationView }
+export { LWState, Station, View, NavigationViewEnum }

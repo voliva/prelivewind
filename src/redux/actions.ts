@@ -1,8 +1,14 @@
 import { ActionType, Action } from './actionTypes';
-import { NavigationView } from './stateType';
+import { NavigationViewEnum } from './stateType';
 
-export function navigate(view:NavigationView):Action {
-    return { type: ActionType.Navigation, view };
+export function navigate(view:NavigationViewEnum, params:any):Action {
+    return { type: ActionType.Navigation, view: {
+        view,
+        params
+    }};
+}
+export function navigateBack():Action {
+    return { type: ActionType.NavigationBack };
 }
 export function acceptCookies():Action {
     return { type: ActionType.AcceptCookies };
