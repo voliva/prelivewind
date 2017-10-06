@@ -1,5 +1,5 @@
 import { LWState, Station, View } from './stateType';
-import { Action, ActionType } from './actionTypes';
+import { Action, ActionType, LoadableData } from './actionTypes';
 import { combineReducers } from 'redux';
 import * as reduceReducers from 'reduce-reducers';
 
@@ -25,7 +25,29 @@ function stationListSelectedTab(state:string = null, action: Action):string {
     return state;
 }
 
+const arrayFind = function<T>(arr:T[], fn:(v:T) => boolean):T {
+    return arr.filter(v => fn(v))[0] || null;
+}
 function stationList(state:Station[] = null, action: Action):Station[] {
+    if(action.type == ActionType.DataLoaded) {
+        switch(action.dataToLoad) {
+            case LoadableData.Stations:
+                return action.data.map(s => {
+                    const originalStation = arrayFind(state, v => v.id == s.id);
+                    return {
+                        ...s,
+                        isFavorite: originalStation ? originalStation.isFavorite : false,
+                        lastData: originalStation ? originalStation.lastData : null
+                    };
+                });
+            case LoadableData.LastData:
+                const lastData:any[] = action.data;
+                return state.map(s => ({
+                    ...s,
+                    lastData: arrayFind(lastData, d => d.stationId == s.id)
+                }));
+        }
+    }
     return state;
 }
 

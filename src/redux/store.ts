@@ -1,4 +1,5 @@
-import { compose, createStore } from 'redux';
+import { compose, createStore, applyMiddleware } from 'redux';
+import thunkMiddleware from 'redux-thunk'
 import * as persistState from 'redux-localstorage'
 import { LWState, NavigationViewEnum } from './stateType';
 import livewind from './reducers';
@@ -11,7 +12,7 @@ const initialState:LWState = {
     hasAcceptedCookies: false,
     stationListSelectedTab: 'fav',
     stationList: [{
-        id: null,
+        id: '1',
         name:'Torredembarra',
         isFavorite: true,
         country: {
@@ -29,7 +30,7 @@ const initialState:LWState = {
             direction: 275
         }
     },{
-        id: null,
+        id: '2',
         name:'Altafulla',
         isFavorite: true,
         country: {
@@ -65,12 +66,10 @@ const initialState:LWState = {
     }]
 }
 
-initialState.stationList = initialState.stationList
-    .concat(initialState.stationList)
-    .concat(initialState.stationList)
-    .concat(initialState.stationList);
-
 const store = createStore(livewind, initialState, compose(
+    applyMiddleware(
+        thunkMiddleware
+    ),
     persistState()
 ));
 export default store;

@@ -1,4 +1,4 @@
-import { h } from 'preact';
+import { h, Component } from 'preact';
 import { Dispatch } from 'redux';
 import { connect } from 'preact-redux';
 import { LWState, Station, NavigationViewEnum } from '../redux/stateType';
@@ -26,6 +26,8 @@ const mapDispatchToProps = (dispatch:Dispatch<LWState>) => ({
         dispatch(switchStationListSelectedTab(tabId));
     },
     onStationClick: (s:Station) => {
+        const scrollPos = document.querySelector('.page-station-list').scrollTop;
+        window.localStorage.setItem('page-station-list-scroll', JSON.stringify(scrollPos));
         dispatch(navigate(NavigationViewEnum.StationDetail, s));
     }
 });
@@ -61,38 +63,48 @@ const groupBy = function<T>(
     return ret;
 }
 
-const SelectedStationsSummary = (props: SelectedStationsSummaryProps) => {
-    let stationList:JSX.Element[];    
-    if(props.selectedTabId === 'fav') {
-        stationList = props.stations
-            .filter(s => s.isFavorite)
-            .map(s => <StationLine station={s} onClick={props.onStationClick} />);
-    }else {
-        const stationsGrouped = groupBy(props.stations, s => s.country.id.toString(), s => s.country.name)
-            .map(countryGroup => ({
-                key: countryGroup.key,
-                name: countryGroup.name,
-                value: groupBy(countryGroup.value, s => s.region.id.toString(), s => s.region.name)
-            }));
-
-        stationList = stationsGrouped.reduce<JSX.Element[]>((list, countryGroup) => {
-            return list.concat([
-                <div class="separator country">{countryGroup.name}</div>,
-                ...countryGroup.value.reduce<JSX.Element[]>((list, regionGroup) => {
-                    return list.concat([
-                        <div class="separator region">{regionGroup.name}</div>,
-                        ...regionGroup.value.map(s => <StationLine station={s} onClick={props.onStationClick} />)
-                    ]);
-                }, [])
-            ]);
-        }, []);
+class SelectedStationsSummary extends Component<SelectedStationsSummaryProps, {}> {
+    componentDidMount() {
+        try {
+            const scrollPos = JSON.parse(window.localStorage.getItem('page-station-list-scroll'));
+            document.querySelector('.page-station-list').scrollTop = scrollPos;
+            window.localStorage.removeItem('page-station-list-scroll');
+        } catch(ex) {}
     }
 
+    render(props: SelectedStationsSummaryProps) {
+        let stationList:JSX.Element[];    
+        if(props.selectedTabId === 'fav') {
+            stationList = props.stations
+                .filter(s => s.isFavorite)
+                .map(s => <StationLine station={s} onClick={props.onStationClick} />);
+        }else {
+            const stationsGrouped = groupBy(props.stations, s => s.country.id.toString(), s => s.country.name)
+                .map(countryGroup => ({
+                    key: countryGroup.key,
+                    name: countryGroup.name,
+                    value: groupBy(countryGroup.value, s => s.region.id.toString(), s => s.region.name)
+                }));
 
-    return <div className={classnames('page-station-list', props.className)}>
-        <TabStrip tabs={tabs} selectedTabId={props.selectedTabId} onTabSelected={props.switchSelectedTab} />
-        {stationList}
-    </div>
+            stationList = stationsGrouped.reduce<JSX.Element[]>((list, countryGroup) => {
+                return list.concat([
+                    <div class="separator country">{countryGroup.name}</div>,
+                    ...countryGroup.value.reduce<JSX.Element[]>((list, regionGroup) => {
+                        return list.concat([
+                            <div class="separator region">{regionGroup.name}</div>,
+                            ...regionGroup.value.map(s => <StationLine station={s} onClick={props.onStationClick} />)
+                        ]);
+                    }, [])
+                ]);
+            }, []);
+        }
+
+
+        return <div className={classnames('page-station-list', props.className)}>
+            <TabStrip tabs={tabs} selectedTabId={props.selectedTabId} onTabSelected={props.switchSelectedTab} />
+            {stationList}
+        </div>
+    }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(SelectedStationsSummary);

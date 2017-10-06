@@ -1,0 +1,108 @@
+Id,IsActive,Nom,Data,Web,Nom_Empresa,"Ratxa[0,1]",Latitut,Longitut,Pais,Regio
+1,1,Port de la Selva,12/11/2012,http://www.cnps.es/servimet.php,CNPS,1,42.341988,3.201656,España,Costa Brava
+2,0,Roses,3/9/2012,http://www.genroses.cat/?q=web/meteo,GEN Roses,1,42.2557369,3.179673,España,Costa Brava
+3,1,Empuriabrava,14/6/2013,http://www.weatherlink.com/user/trastitu/,WeatherLink,1,42.249137605719,3.1338500976562,España,Costa Brava
+4,0,St Pere Pescador,17/7/2013,http://www.ballena-alegre.com/,Càmping Ballena Alegre,1,42.153054,3.1122941,España,Costa Brava
+5,1,L'Escala,18/7/2012,http://www.nauticescala.com/ca/port-esportiu-a-la-costa-brava/meteo.php,CN l'Escala,0,42.1168081,3.1489992,España,Costa Brava
+6,1,Estartit,3/9/2012,http://www.cnestartit.es/,CN Estartit,0,42.0539531,3.2047355,España,Costa Brava
+7,1,Sa Riera,28/05/2016,http://www.weatherlink.com/user/pverhoeven,WeatherLink,1,41.9733,3.21465,España,Costa Brava
+8,1,Boya Begur,28/05/2016,http://www.puertos.es/es-es/oceanografia/Paginas/portus.aspx,Puertos de España,1,41.91,3.65,España,Costa Brava
+9,0,Palamós,12/11/2012,http://www.cncostabrava.com/es/default/meteo,CN Costa Brava,1,41.842856,3.128482,España,Costa Brava
+10,1,Palamós Platja,28/05/2016,http://www.weatherlink.com/user/ellado,WeatherLink,1,41.84851,3.12417,España,Costa Brava
+11,1,St Antoni Calonge,28/05/2016,http://www.weatherlink.com/user/calongeplatjatv,WeatherLink,1,41.83916,3.09406,España,Costa Brava
+12,1,Port d'Aro,18/7/2012,http://www.clubnauticportdaro.cat/?page_id=1058,CN Port d'Aro,0,41.8020547,3.0641985,España,Costa Brava
+13,1,Canyelles,28/05/2016,http://www.cncanyelles.com/,CN Canyelles,1,41.70418,2.88048,España,Costa Brava
+14,1,Pineda de Mar,25/6/2013,http://serveis.pinedasensefils.cat/,Pinedasensefils,1,41.6245101,2.6827579,España,Costa del Maresme
+15,1,Calella,28/05/2016,http://www.meteoclimatic.net/perfil/ESCAT0800000008370A,MeteoCalella,1,41.61416,2.66472,España,Costa del Maresme
+16,1,Mataró,28/05/2016,http://www.portmataro.org/,Port Mataro,1,41.53027,2.44861,España,Costa del Maresme
+17,1,Premià de Mar,25/6/2013,http://www.meteopremia.com/,Meteopremia,1,41.4913323,2.3667576,España,Costa del Maresme
+18,1,Premià Platja,28/05/2016,http://cbc117.zapto.org/,Meteoclimatic,1,41.49444,2.37222,España,Costa del Maresme
+19,1,Barcelona,17/7/2012,http://www.velabarcelona.com/index.php/ca/el-centre-municipal-de-vela/estacio-meteo.html,Vela Barcelona,1,41.3873219,2.2026515,España,Costa de Barcelona
+20,1,Barcelona ICM,28/05/2016,http://www.icm.csic.es/,Institut de Ciències del Mar,1,41.38555,2.19555,España,Costa de Barcelona
+21,1,Castelldefels,4/7/2013,http://www.17nudos.com/index.php,17 nudos,1,41.2652271,1.9753933,España,Costa del Garraf
+22,1,Castelldefels Baixador,28/05/2016,http://www.meteoclimatic.net/perfil/ESCAT0800000008860B,Meteoclimatic,1,41.26527,1.95611,España,Costa del Garraf
+23,0,Garraf,18/7/2012,http://www.clubnauticgarraf.com/,CN Garraf,0,41.250846,1.898581,España,Costa del Garraf
+24,1,Port Sitges,14/6/2013,http://www.portdesitges.com/,Port de Sitges Aiguadolç,1,41.234689817826,1.8256321549416,España,Costa del Garraf
+25,1,Vilanova,28/05/2016,http://www.meteovilanova.info/,MeteoVilanova,1,41.22305,1.72416,España,Costa del Garraf
+26,1,Cubelles,28/05/2016,http://meteo.ea3hkb.com/,EA3HKB,1,41.20611,1.67722,España,Costa del Garraf
+27,1,Torredembarra,9/7/2012,http://cmtorredembarra.wordpress.com/,CM Torredembarra,1,41.1455455,1.4163566,España,Costa Daurada
+28,1,Altafulla,18/7/2012,http://www.clubmaritimaltafulla.com/,CM Altafulla,1,41.1335629,1.3739482,España,Costa Daurada
+29,1,Tarragona,28/05/2016,http://www.puertos.es/es-es/oceanografia/Paginas/portus.aspx,Puertos de España,1,41.07909,1.21295,España,Costa Daurada
+30,1,Miami Platja,28/05/2016,http://www.meteoclimatic.net/perfil/ESCAT4300000043892C,Meteoclimatic,1,41.00194,0.92972,España,Costa Daurada
+31,1,Hospitalet vandellós,28/05/2016,http://www.meteoclimatic.net/perfil/ESCAT4300000043890A,Meteoclimatic,1,40.99249,0.92277,España,Costa Daurada
+32,1,Boya tarragona,28/05/2016,http://www.puertos.es/es-es/oceanografia/Paginas/portus.aspx,Puertos de España,1,40.69,1.47,España,Costa Daurada
+33,1,St Carles de la Ràpita,28/05/2016,http://www.meteoclimatic.net/perfil/ESCAT4300000043540A,Meteoclimatic,1,40.62249,0.59249,España,Costa Daurada
+34,1,Oropesa del Mar,3/9/2012,http://www.cnoropesa.com/index.php?option=com_content&view=article&id=149%3Aimagen-de-la-bocana-en-directo&catid=51&Itemid=126,CN Oropesa,0,40.0773818,0.1332843,España,Costa del Azahar
+35,1,Boya Valencia,28/05/2016,http://www.puertos.es/es-es/oceanografia/Paginas/portus.aspx,Puertos de España,1,39.52,0.21,España,Costa de Valencia
+36,1,Valencia,28/05/2016,http://www.marinarealjuancarlosi.com/,Marina Real,1,39.46243,-0.31328,España,Costa de Valencia
+37,0,Cullera,19/06/2013,http://meteocullera.webcindario.com/,MeteoCullera,1,39.1628017573,-0.24566888809204,España,Costa de Valencia
+38,1,Tavernes,28/05/2016,http://www.meteovall.es/,MeteoVall,1,39.008783,-0.2162,España,Costa de Valencia
+39,1,Gandia,5/9/2012,http://www.rcngandia.com/,RCN Gandia,1,38.9963738,-0.155611,España,Costa de Valencia
+40,0,WindOliva,19/06/2013,http://www.windoliva.com/meteooliva/meteocurrent.php?idmen=3,WindOliva,1,38.905528,-0.066583,España,Costa de Valencia
+41,1,Xàbia,24/9/2013,http://www.meteoxabia.com,Meteo Xabia,1,38.7967327,0.1841068,España,Costa Blanca
+42,1,Altea,28/05/2016,http://www.cnaltea.com/,CN Altea,1,38.58829,-0.05716,España,Costa Blanca
+43,1,Santa Pola,28/05/2016,http://www.cabodesantapola.org/,Cabo de Santa Pola,1,38.22118,-0.51579,España,Costa Blanca
+44,1,Torrevieja,28/05/2016,http://www.weatherlink.com/user/setsaas,WeatherLink,1,37.97589,-0.68178,España,Costa Blanca
+45,0,Torrevieja - Acequión,5/9/2013,http://www.eltiempoentorrevieja.es/,Proyecto Mastral,1,37.980314,-0.688938,España,Costa Blanca
+46,0,Torrevieja - Los Locos,,,,,,,España,Costa Blanca
+47,1,Boya palos,28/05/2016,http://www.puertos.es/es-es/oceanografia/Paginas/portus.aspx,Puertos de España,1,37.65,-0.31,España,Costa Cálida
+48,1,Ciutadella,28/05/2016,http://www.meteoclimatic.net/perfil/ESIBA0700000307760A,Meteoclimatic,1,39.99472,3.83361,España,Menorca
+49,1,Mahón,28/05/2016,http://www.puertos.es/es-es/oceanografia/Paginas/portus.aspx,Puertos de España,1,39.89314,4.27037,España,Menorca
+50,1,Boya Mahón,28/05/2016,http://www.puertos.es/es-es/oceanografia/Paginas/portus.aspx,Puertos de España,1,39.71,4.42,España,Menorca
+51,1,Alcudia,28/05/2016,http://www.puertos.es/es-es/oceanografia/Paginas/portus.aspx,Puertos de España,1,39.83472,3.13908,España,Mayorca
+52,1,Es Rajoli,28/05/2016,http://www.meteodemallorca.com/,Meteo de Mallorca,1,39.63582,3.41443,España,Mayorca
+53,1,Cala Millor,28/05/2016,http://www.meteodemallorca.com/,Meteo de Mallorca,1,39.59952,3.38471,España,Mayorca
+54,1,Portopetro,28/05/2016,http://www.meteodemallorca.com/,Meteo de Mallorca,1,39.36111,3.321033,España,Mayorca
+55,1,Cala Gamba,28/05/2016,http://www.cncg.es/,CN Cala Gamba,1,39.54654,2.69422,España,Mayorca
+56,1,Palma,28/05/2016,http://www.puertos.es/es-es/oceanografia/Paginas/portus.aspx,Puertos de España,1,39.56024,2.63744,España,Mayorca
+57,1,Andratx,3/10/2012,http://www.cvpa.es/,CV Puerto de Andratx,1,39.54581,2.38317,España,Mayorca
+58,1,Boya dragonera,28/05/2016,http://www.puertos.es/es-es/oceanografia/Paginas/portus.aspx,Puertos de España,1,39.55,2.1,España,Mayorca
+59,1,Santa Eulalia des Riu,28/05/2016,http://www.meteoclimatic.net/perfil/ESIBA0700000207840A,Meteoclimatic,1,38.98472,1.53388,España,Ibiza
+60,1,Ibiza Puerto,28/05/2016,http://www.puertos.es/es-es/oceanografia/Paginas/portus.aspx,Puertos de España,1,38.91143,1.4495,España,Ibiza
+61,1,Ibiza Pilot,28/05/2016,http://www.weatherlink.com/user/ibizapilot,WeatherLink,1,38.90332,1.44749,España,Ibiza
+62,1,Formentera,28/05/2016,http://www.puertos.es/es-es/oceanografia/Paginas/portus.aspx,Puertos de España,1,38.73469,1.41896,España,Ibiza
+63,1,Carboneras,28/05/2016,http://www.puertos.es/es-es/oceanografia/Paginas/portus.aspx,Puertos de España,1,36.97531,-1.9,España,Costa de Almería
+64,1,Roldán,28/05/2016,http://www.puertos.es/es-es/oceanografia/Paginas/portus.aspx,Puertos de España,1,36.942,-1.90724,España,Costa de Almería
+65,1,Boya Gata,28/05/2016,http://www.puertos.es/es-es/oceanografia/Paginas/portus.aspx,Puertos de España,1,36.57,-2.34,España,Costa de Almería
+66,1,Almeria,28/05/2016,http://www.puertos.es/es-es/oceanografia/Paginas/portus.aspx,Puertos de España,1,36.832,-2.48,España,Costa de Almería
+67,1,Almeria 2,28/05/2016,http://www.puertos.es/es-es/oceanografia/Paginas/portus.aspx,Puertos de España,1,36.83024,-2.47827,España,Costa de Almería
+68,1,Herradura,28/05/2016,http://www.marinasmediterraneo.com/,Marinas del Mediterráneo,1,36.72416,-3.73487,España,Costa tropical
+69,1,Málaga,28/05/2016,http://www.weatherlink.com/user/tds,WeatherLink,1,36.70682,-4.42521,España,Costa del Sol
+70,1,Puerto Banus,28/05/2016,http://www.meteopuertobanus.es/,Meteo Puerto Banus,1,36.4898,-4.94905,España,Costa del Sol
+71,1,Campamento,28/05/2016,http://www.puertos.es/es-es/oceanografia/Paginas/portus.aspx,Puertos de España,1,36.17224,-5.38111,España,Costa de la Luz
+72,1,Algeciras,28/05/2016,http://www.puertos.es/es-es/oceanografia/Paginas/portus.aspx,Puertos de España,1,36.177727,-5.39806,España,Costa de la Luz
+73,1,Endesa,28/05/2016,http://www.puertos.es/es-es/oceanografia/Paginas/portus.aspx,Puertos de España,1,36.17335,-5.41977,España,Costa de la Luz
+74,1,Abrigo,28/05/2016,http://www.puertos.es/es-es/oceanografia/Paginas/portus.aspx,Puertos de España,1,36.13621,-5.43033,España,Costa de la Luz
+75,1,Exento Norte,28/05/2016,http://www.puertos.es/es-es/oceanografia/Paginas/portus.aspx,Puertos de España,1,36.13572,-5.41703,España,Costa de la Luz
+76,1,Exento Sur,28/05/2016,http://www.puertos.es/es-es/oceanografia/Paginas/portus.aspx,Puertos de España,1,36.1186,-5.41634,España,Costa de la Luz
+77,1,Punta Carnero,28/05/2016,http://www.puertos.es/es-es/oceanografia/Paginas/portus.aspx,Puertos de España,1,36.0774,-5.42724,España,Costa de la Luz
+78,1,Tarifa,28/05/2016,http://www.puertos.es/es-es/oceanografia/Paginas/portus.aspx,Puertos de España,1,36.01043,-5.60244,España,Costa de la Luz
+79,1,Tarifa Dique,28/05/2016,http://www.puertos.es/es-es/oceanografia/Paginas/portus.aspx,Puertos de España,1,36.00816,-5.60116,España,Costa de la Luz
+80,1,Gallineras,20/11/2012,http://www.cngallineras.es/index.php/el-tiempo,CN Gallineras,0,36.440151,-6.207134,España,Costa de la Luz
+81,1,Boya Cadiz,28/05/2016,http://www.puertos.es/es-es/oceanografia/Paginas/portus.aspx,Puertos de España,1,36.49,-6.96,España,Costa de la Luz
+82,1,Zumaia,28/05/2016,http://www.weatherlink.com/user/salvetzumaia1,WeatherLink,1,43.29704,-2.25644,España,Costa Vasca
+83,1,Getxo,28/05/2016,http://www.rcmarsc.es/,RCMA RSC,1,43.32979,-3.01548,España,Costa Vasca
+84,1,Boya bilbao,28/05/2016,http://www.puertos.es/es-es/oceanografia/Paginas/portus.aspx,Puertos de España,1,43.64,-3.04,España,Costa Vasca
+85,1,Santander,28/05/2016,http://tiempo.fiochi.com/,Fiochi,1,43.4623,-3.81,España,Costa de Cantabria
+86,1,Boya Santander,28/05/2016,http://www.puertos.es/es-es/oceanografia/Paginas/portus.aspx,Puertos de España,1,43.89,-3.78,España,Costa de Cantabria
+87,1,Gijón,28/05/2016,http://www.puertos.es/es-es/oceanografia/Paginas/portus.aspx,Puertos de España,1,43.559,-5.699,España,Costa Verde
+88,1,Boya Peñas,28/05/2016,http://www.puertos.es/es-es/oceanografia/Paginas/portus.aspx,Puertos de España,1,43.75,-6.16,España,Costa Verde
+89,1,Porto de Bares,28/05/2016,http://www.clubparapenteferrol.com/,CP Ferrol,1,43.77674,-7.66721,España,Costa de Galicia
+90,1,Boya bares,28/05/2016,http://www.puertos.es/es-es/oceanografia/Paginas/portus.aspx,Puertos de España,1,44.12,-7.69,España,Costa de Galicia
+91,1,Ferrol,28/05/2016,http://www.puertos.es/es-es/oceanografia/Paginas/portus.aspx,Puertos de España,1,44.46201,-8.32712,España,Costa de Galicia
+92,1,Boya Langesteira,28/05/2016,http://www.puertos.es/es-es/oceanografia/Paginas/portus.aspx,Puertos de España,1,43.35,-8.56,España,Costa de Galicia
+93,1,Vigo,28/05/2016,http://www.puertos.es/es-es/oceanografia/Paginas/portus.aspx,Puertos de España,1,42.24303,-8.72614,España,Costa de Galicia
+94,1,Ebro,05/06/2014,http://www.saihebro.com/saihebro/index.php?url=/datos/mapas/tipoestacion:E,SAIH Ebro,1,42.97243,-4.05237,España,Cuenca del Ebro
+95,1,Vitoria,20/11/2012,http://www.cnvitoria.com/estacion.php,CN Vitoria,1,42.94109,-2.60264,España,Cuenca del Ebro
+96,1,Alloz,05/06/2014,http://www.saihebro.com/saihebro/index.php?url=/datos/mapas/tipoestacion:E,SAIH Ebro,1,42.70532,-1.94391,España,Cuenca del Ebro
+97,1,La Loteta,07/06/2014,http://www.saihebro.com/saihebro/index.php?url=/datos/mapas/tipoestacion:E,SAIH Ebro,1,41.82563,-1.32556,España,Cuenca del Ebro
+98,1,La Sotonera,05/06/2014,http://www.saihebro.com/saihebro/index.php?url=/datos/mapas/tipoestacion:E,SAIH Ebro,1,42.10801,-0.67044,España,Cuenca del Ebro
+99,1,La Estanca,07/06/2014,http://www.saihebro.com/saihebro/index.php?url=/datos/mapas/tipoestacion:E,SAIH Ebro,1,41.06178,-0.18347,España,Cuenca del Ebro
+100,1,Lanzarote,28/05/2016,http://www.puertos.es/es-es/oceanografia/Paginas/portus.aspx,Puertos de España,1,29.97225,-13.53,España,Canarias
+101,1,Fuerteventura,28/05/2016,http://www.puertos.es/es-es/oceanografia/Paginas/portus.aspx,Puertos de España,1,28.49313,-13.85839,España,Canarias
+102,1,Las Palmas,28/05/2016,http://www.puertos.es/es-es/oceanografia/Paginas/portus.aspx,Puertos de España,1,28.14087,-15.41175,España,Canarias
+103,1,Boya Gran Canaria,28/05/2016,http://www.puertos.es/es-es/oceanografia/Paginas/portus.aspx,Puertos de España,1,28.19,-15.8,España,Canarias
+104,1,Boya Tenerife,28/05/2016,http://www.puertos.es/es-es/oceanografia/Paginas/portus.aspx,Puertos de España,1,28,-16.6,España,Canarias
+105,0,Marbella,27/9/2013,http://www.meteopuertobanus.es/,Meteo Puerto Banus,1,36.4875,-4.9525,España,Costa del Sol
+106,1,Praia Grande,28/05/2016,http://beachcam.sapo.pt/,BeachCam Sapo,1,38.81443,-9.477,Portugal,Lisboa
+107,1,Cascais,28/05/2016,http://beachcam.sapo.pt/,BeachCam Sapo,1,38.70191,-9.40886,Portugal,Lisboa

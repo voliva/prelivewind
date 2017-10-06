@@ -22,7 +22,8 @@ const StationLine = (props:StationLineProps) => {
     const windLine = showWind ?
         <div className={classnames('station-header__mean',{'has-gust': showGust})}
             style={getStyle(lastData.wind)}>
-            {direction} {formatNumber(lastData.wind)}kts
+            <span className='station-header__direction'>{direction}</span>
+            {formatNumber(lastData.wind)}kts
         </div> : null;
     const gustLine = showGust ?
         <div className='station-header__gust'

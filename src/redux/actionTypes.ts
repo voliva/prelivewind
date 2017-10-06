@@ -1,30 +1,53 @@
 import { View } from './stateType';
+import Station from '../services/station';
 
 enum ActionType {
     Navigation = 'Navigation',
     NavigationBack = 'NavigationBack',
     AcceptCookies = 'AcceptCookies',
-    SwitchStationListSelectedTab = 'SwitchStationListSelectedTab'
+    SwitchStationListSelectedTab = 'SwitchStationListSelectedTab',
+    LoadStationsFile = 'LoadStationsFile',
+    StartDataLoad = 'StartDataLoad',
+    DataLoaded = 'DataLoaded',
+    DataLoadError = 'DataLoadError'
+}
+enum LoadableData {
+    Stations,
+    LastData
 }
 
 interface BaseAction {
     type: ActionType;
 }
-
+interface GenericAction {
+    type:
+        ActionType.NavigationBack | 
+        ActionType.AcceptCookies |
+        ActionType.LoadStationsFile
+}
 interface Navigation extends BaseAction {
     type: ActionType.Navigation;
     view: View;
 }
-interface NavigationBack extends BaseAction {
-    type: ActionType.NavigationBack;
+interface StartDataLoad extends BaseAction {
+    type: ActionType.StartDataLoad,
+    dataToLoad: LoadableData,
 }
-interface AcceptCookies extends BaseAction {
-    type: ActionType.AcceptCookies
+interface DataLoaded<T> extends BaseAction {
+    type: ActionType.DataLoaded,
+    dataToLoad: LoadableData,
+    data: T
+}
+interface DataLoadError extends BaseAction {
+    type: ActionType.DataLoadError,
+    dataToLoad: LoadableData,
+    error: string
 }
 interface SwitchStationListSelectedTab extends BaseAction {
     type: ActionType.SwitchStationListSelectedTab;
     tabId: string;
 }
 
-type Action = SwitchStationListSelectedTab | AcceptCookies | Navigation | NavigationBack;
-export {ActionType, Action};
+type Action = GenericAction | SwitchStationListSelectedTab | Navigation
+    | DataLoaded<any> | DataLoadError | StartDataLoad;
+export {ActionType, Action, LoadableData};
