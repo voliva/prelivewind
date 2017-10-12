@@ -12,7 +12,6 @@
   "dependencies": {
     "classnames": "^2.2.5",
     "isomorphic-fetch": "^2.2.1",
-    "papaparse": "^4.3.6",
     "preact": "^8.2.5",
     "preact-redux": "^2.0.2",
     "reduce-reducers": "^0.1.2",

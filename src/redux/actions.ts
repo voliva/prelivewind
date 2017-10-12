@@ -1,7 +1,6 @@
 import { ActionType, Action, LoadableData } from './actionTypes';
 import { NavigationViewEnum } from './stateType';
 import Station from '../services/station';
-import * as Papa from 'papaparse';
 import * as fetch from 'isomorphic-fetch';
 
 export function navigate(view:NavigationViewEnum, params:any):Action {
@@ -41,27 +40,30 @@ export function loadGeneralData(dataToLoad:LoadableData[]):(dispatch) => void {
 
             switch(req) {
                 case LoadableData.Stations:
-                    Papa.parse('/stations.csv', {
-                        download: true,
-                        header: true,
-                        complete: (result) => {
-                            dispatch(endLoad(req, result.data.map(d => ({
-                                id: d.Id,
-                                name: d.Nom,
-                                country: {
-                                    id: d.Pais,
-                                    name: d.Pais
-                                },
-                                region: {
-                                    id: d.Regio,
-                                    name: d.Regio
-                                }
-                            }))));
-                        },
-                        error: (err) => {
-                            dispatch(loadError(req, err))
-                        }
-                    });
+                    fetch('/stations.csv')
+                        .then(res => res.text())
+                        .then((csv:string) => {
+                            const table = parseCSV(csv);
+                            const header = table[0];
+
+                            return table.slice(1).map(d => {
+                                const obj = {};
+                                header.forEach((h,i) => obj[h] = d[i]);
+                                return obj;
+                            });
+                        })
+                        .then(result => dispatch(endLoad(req, result.map(d => ({
+                            id: d.Id,
+                            name: d.Nom,
+                            country: {
+                                id: d.Pais,
+                                name: d.Pais
+                            },
+                            region: {
+                                id: d.Regio,
+                                name: d.Regio
+                            }
+                        })))));
                     break;
                 case LoadableData.LastData:
                     fetch('https://livewind.freemyip.com/api/query?version=1&lastData=all')
@@ -84,4 +86,29 @@ export function loadGeneralData(dataToLoad:LoadableData[]):(dispatch) => void {
             }
         });
     };
+}
+
+function parseCSV(csv:string):string[][] {
+    function parseLine(line:string):string[] {
+        const ret = [];
+        while(line.length > 0) {
+            const nextSplit = line.charAt(0) === '"' ? line.indexOf('",') : line.indexOf(',');
+            
+            if(nextSplit < 0) {
+                ret.push(line.trim()
+                    .replace(/^"/, '')
+                    .replace(/"$/, '')); // Fails if some value finishes with \"
+                line = '';
+            }else {
+                const value = line.slice(0, nextSplit);
+                ret.push(value.trim()
+                    .replace(/^"/, '')
+                    .replace(/"$/, '')); // Fails if some value finishes with \"
+                line = line.slice(line.charAt(0) === '"' ? nextSplit+2 : nextSplit+1);
+            }
+        }
+        return ret;
+    }
+    return csv.split('\n')
+        .map(l => parseLine(l.trim()));
 }
