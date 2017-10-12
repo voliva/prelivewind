@@ -15,12 +15,16 @@
     border-bottom: 1px solid var(--colorLivewind);
     color: var(--colorDarkLivewind);
 }
-.app-header__left-btn {
+.app-header__left-btn,
+.app-header__right-btn {
     position: absolute;
     top: 50%;
-    left: 5px;
     transform: translateY(-50%);
     display: block;
-    line-height: 1;
-    font-size: 38px;
+}
+.app-header__left-btn {
+    left: 5px;
+}
+.app-header__right-btn {
+    right: 5px;
 }

@@ -11,7 +11,7 @@ interface LWState {
 
 interface View {
     view: NavigationViewEnum;
-    parms?: any;
+    params?: any;
 }
 enum NavigationViewEnum {
     StationList,

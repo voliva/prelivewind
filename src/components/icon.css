@@ -1,0 +1,15 @@
+.icon {
+    stroke: black;
+    fill: none;
+}
+.icon--filled {
+    fill: black;
+}
+.icon__arrowBack {
+    stroke-width: 2;
+    stroke-linejoin: bevel;
+    stroke-linecap: round; /* Could affect performance */
+}
+.icon__star {
+    stroke-width: 1;
+}

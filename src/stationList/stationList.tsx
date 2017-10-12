@@ -28,7 +28,7 @@ const mapDispatchToProps = (dispatch:Dispatch<LWState>) => ({
     onStationClick: (s:Station) => {
         const scrollPos = document.querySelector('.page-station-list').scrollTop;
         window.localStorage.setItem('page-station-list-scroll', JSON.stringify(scrollPos));
-        dispatch(navigate(NavigationViewEnum.StationDetail, s));
+        dispatch(navigate(NavigationViewEnum.StationDetail, s.id));
     }
 });
 

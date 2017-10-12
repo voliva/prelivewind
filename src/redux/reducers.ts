@@ -47,6 +47,11 @@ function stationList(state:Station[] = null, action: Action):Station[] {
                     lastData: arrayFind(lastData, d => d.stationId == s.id)
                 }));
         }
+    }else if(action.type === ActionType.ToggleFavorito) {
+        return state.map(s => ({
+            ...s,
+            isFavorite: s.id === action.stationId ? !s.isFavorite : s.isFavorite
+        }));
     }
     return state;
 }

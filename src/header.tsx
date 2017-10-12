@@ -1,10 +1,20 @@
 import { h } from 'preact';
 import './header.css';
+import Icon from './components/icon';
 
-const Header = (props) => (
+interface HeaderProps {
+    title:string;
+    hasBackButton?:boolean;
+    starButtonState?:'active'|'default';
+    onBackClick?:() => void;
+    onStarClick?:() => void;
+}
+
+const Header = (props:HeaderProps) => (
     <header className='app-header'>
-        {props.hasBackButton ? <span class="app-header__left-btn typcn typcn-arrow-left" onClick={props.onBackClick}>&lt;-</span> : null}
+        {props.hasBackButton ? <Icon type='arrowBack' className="app-header__left-btn" onClick={props.onBackClick} /> : null}
         <span className='app-header__title'>{props.title}</span>
+        {props.starButtonState ? <Icon type='star' className="app-header__right-btn" onClick={props.onStarClick} fill={props.starButtonState === 'active'}/> : null }
     </header>
 )
 

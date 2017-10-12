@@ -9,7 +9,8 @@ enum ActionType {
     LoadStationsFile = 'LoadStationsFile',
     StartDataLoad = 'StartDataLoad',
     DataLoaded = 'DataLoaded',
-    DataLoadError = 'DataLoadError'
+    DataLoadError = 'DataLoadError',
+    ToggleFavorito = 'ToggleFavorito'
 }
 enum LoadableData {
     Stations,
@@ -28,6 +29,10 @@ interface GenericAction {
 interface Navigation extends BaseAction {
     type: ActionType.Navigation;
     view: View;
+}
+interface ToggleFavorito extends BaseAction {
+    type: ActionType.ToggleFavorito;
+    stationId: string;
 }
 interface StartDataLoad extends BaseAction {
     type: ActionType.StartDataLoad,
@@ -49,5 +54,5 @@ interface SwitchStationListSelectedTab extends BaseAction {
 }
 
 type Action = GenericAction | SwitchStationListSelectedTab | Navigation
-    | DataLoaded<any> | DataLoadError | StartDataLoad;
+    | DataLoaded<any> | DataLoadError | StartDataLoad | ToggleFavorito;
 export {ActionType, Action, LoadableData};

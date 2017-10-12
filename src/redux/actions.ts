@@ -18,6 +18,9 @@ export function acceptCookies():Action {
 export function switchStationListSelectedTab(tabId:string):Action {
     return { type: ActionType.SwitchStationListSelectedTab, tabId };
 }
+export function toggleFavorito(stationId:string): Action {
+    return { type: ActionType.ToggleFavorito, stationId };
+}
 
 function startLoad(dataToLoad:LoadableData): Action {
     return { type: ActionType.StartDataLoad, dataToLoad };

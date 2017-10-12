@@ -3,9 +3,9 @@ import { Dispatch } from 'redux';
 import { connect, Provider } from 'preact-redux';
 import StationList from './stationList/stationList';
 import store from './redux/store';
-import { acceptCookies, navigateBack, loadGeneralData } from './redux/actions';
+import { acceptCookies, navigateBack, loadGeneralData, toggleFavorito } from './redux/actions';
 import { LoadableData } from './redux/actionTypes';
-import { LWState, NavigationViewEnum } from './redux/stateType';
+import { LWState, NavigationViewEnum, Station } from './redux/stateType';
 import './app.css';
 import * as classnames from 'classnames';
 import Header from './header';
@@ -14,6 +14,8 @@ import StationDetail from './stationDetail/stationDetail';
 
 const mapStateToProps = (state:LWState) => console.log(state) || ({
     currentView: state.currentView,
+    stationDetail: (state.currentView.view === NavigationViewEnum.StationDetail) ?
+        state.stationList.filter(s => s.id === state.currentView.params)[0] : null,
     hasAcceptedCookies: state.hasAcceptedCookies,
     viewStack: state.viewStack
 });
@@ -24,6 +26,9 @@ const mapDispatchToProps = (dispatch:Dispatch<LWState>) => ({
     },
     onBackClick: () => {
         dispatch(navigateBack());
+    },
+    onStarClick: (s:Station) => {
+        dispatch(toggleFavorito(s.id));
     },
     loadAllData: () => {
         dispatch(loadGeneralData([LoadableData.Stations,LoadableData.LastData]));
@@ -47,15 +52,20 @@ class PreLivewind extends Component<any, any> {
     componentDidMount() {
         this.props.loadAllData()
     }
-    render({currentView, viewStack, hasAcceptedCookies, onCookieDismiss, onBackClick}) {
-        const headerTitle = currentView.view === NavigationViewEnum.StationDetail ?
-            currentView.params.name : 'Livewind';
+    render({currentView, stationDetail, viewStack, hasAcceptedCookies, onCookieDismiss, onBackClick, onStarClick}) {
+        const headerTitle = stationDetail ? stationDetail.name : 'Livewind';
+        
+        const starButtonState = stationDetail
+            ? (stationDetail.isFavorite ? 'active' : 'default')
+            : null;
     
         return <div className='livewind'>
             <Header
                 title={headerTitle}
                 hasBackButton={viewStack.length > 0}
-                onBackClick={onBackClick} />
+                onBackClick={onBackClick}
+                starButtonState={starButtonState}
+                onStarClick={() => onStarClick(stationDetail)} />
             <div className='livewind__content'>
                 { getView(currentView.view) }
             </div>
