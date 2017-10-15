@@ -81,3 +81,13 @@ render(<Provider store={store}>
     <App />
 </Provider>, app, splash);
 
+import * as Bluebird from 'bluebird';
+declare global {
+    const Promise: {
+        new <R>(callback: (
+            resolve: (thenableOrResult?: R | PromiseLike<R>) => void,
+            reject: (error?: any) => void,
+            onCancel?: (callback: () => void) => void
+        ) => void): Bluebird<R>;
+    };
+}

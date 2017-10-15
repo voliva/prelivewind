@@ -7,7 +7,8 @@
   "scripts": {
     "start": "webpack --watch",
     "build": "webpack",
-    "buildProd": "webpack -p"
+    "buildProd": "webpack -p",
+    "reportProd": "webpack -p --json > report.json"
   },
   "dependencies": {
     "classnames": "^2.2.5",

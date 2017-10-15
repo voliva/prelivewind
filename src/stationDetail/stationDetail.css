@@ -1,0 +1,7 @@
+@import '../variables.css';
+
+.section-title {
+    font-size: var(--bigFontSize);
+    text-align: center;
+    padding: 10px;
+}
