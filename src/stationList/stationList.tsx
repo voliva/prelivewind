@@ -2,7 +2,7 @@ import { h, Component } from 'preact';
 import { Dispatch } from 'redux';
 import { connect } from 'preact-redux';
 import { LWState, Station, NavigationViewEnum } from '../redux/stateType';
-import { switchStationListSelectedTab, navigate } from '../redux/actions';
+import { switchStationListSelectedTab, navigate, toggleFavorito } from '../redux/actions';
 import StationLine from './stationLine';
 import TabStrip from '../components/tabStrip';
 import './stationList.css';
@@ -13,6 +13,7 @@ interface SelectedStationsSummaryProps {
     selectedTabId: string,
     switchSelectedTab: (tabId:string) => void;
     onStationClick: (s:Station) => void;
+    onStarClick: (s:Station) => void;
     className?: string;
 }
 
@@ -29,6 +30,9 @@ const mapDispatchToProps = (dispatch:Dispatch<LWState>) => ({
         const scrollPos = document.querySelector('.page-station-list').scrollTop;
         window.localStorage.setItem('page-station-list-scroll', JSON.stringify(scrollPos));
         dispatch(navigate(NavigationViewEnum.StationDetail, s.id));
+    },
+    onStarClick: (s:Station) => {
+        dispatch(toggleFavorito(s.id));
     }
 });
 
@@ -92,7 +96,10 @@ class SelectedStationsSummary extends Component<SelectedStationsSummaryProps, {}
                     ...countryGroup.value.reduce<JSX.Element[]>((list, regionGroup) => {
                         return list.concat([
                             <div class="separator region">{regionGroup.name}</div>,
-                            ...regionGroup.value.map(s => <StationLine station={s} onClick={props.onStationClick} />)
+                            ...regionGroup.value.map(s => <StationLine
+                                station={s}
+                                onClick={props.onStationClick}
+                                onStarClick={props.onStarClick} />)
                         ]);
                     }, [])
                 ]);

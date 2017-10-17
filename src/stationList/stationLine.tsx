@@ -1,11 +1,13 @@
 import { h, ComponentProps } from 'preact';
-import Station from '../services/station';
+import { Station } from '../redux/stateType';
 import * as classnames from 'classnames';
+import Icon from '../components/icon';
 
 interface StationLineProps extends ComponentProps<any> {
     station: Station,
     onClick?: (s:Station) => void,
-    className?: any
+    className?: any,
+    onStarClick?: (s:Station) => void
 }
 
 const MIN_PCT = 10;
@@ -30,8 +32,16 @@ const StationLine = (props:StationLineProps) => {
             style={getStyle(lastData.gust)}>
             {formatNumber(lastData.gust)}kts
         </div> : null;
+    const onStarClick = (evt:MouseEvent) => {
+        evt.stopPropagation();
+        props.onStarClick(props.station);
+    }
+    const star = props.onStarClick ?
+        <Icon className='station-header__star' type='star' fill={props.station.isFavorite}  onClick={onStarClick}/>
+        : null;
 
     return <div onClick={() => props.onClick(props.station)} className={classnames('station-header', props.className)}>
+        {star}
         <div className='station-header__name'>{props.station.name}</div>
         <div className='station-header__wind'>
             {windLine}

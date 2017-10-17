@@ -5,7 +5,14 @@
     height: 36px;
     padding: 0;
 }
+.station-header__star {
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 5px;
+}
 .station-header__name {
+    display: inline-block;
+    vertical-align: middle;
     line-height: 36px;
     white-space: nowrap;
     overflow: hidden;
@@ -15,7 +22,7 @@
 .station-header__wind {
     position: absolute;
     top: 0px;
-    left: 0px;
+    left: 35px;
     right: 0px;
     height: 100%;
     overflow: hidden;
@@ -39,7 +46,6 @@
     line-height: 14px;
 }
 .station-header__direction {
-    opacity: 0.7;
     margin-right: 0.5em;
     font-size: 0.9em;
 }
