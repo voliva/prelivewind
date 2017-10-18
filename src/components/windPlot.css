@@ -2,4 +2,5 @@
     display: block;
     margin: auto;
     width: 95%;
+    width: 95vmin; /* Basically for desktop screens, so it doesn't get too big */
 }

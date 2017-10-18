@@ -65,6 +65,10 @@ export function loadGeneralData(dataToLoad:LoadableData[]):(dispatch) => void {
                             region: {
                                 id: d.Regio,
                                 name: d.Regio
+                            },
+                            web: {
+                                name: d.Nom_Empresa,
+                                url: d.Web
                             }
                         })))));
                     break;
@@ -89,6 +93,42 @@ export function loadGeneralData(dataToLoad:LoadableData[]):(dispatch) => void {
             }
         });
     };
+}
+
+export function loadCurrentStationData(stationId:string):(dispatch) => void {
+    return dispatch => {
+        dispatch(startLoad(LoadableData.Data));
+        dispatch(startLoad(LoadableData.LastData));
+        const now = Math.floor(new Date().getTime() / 1000);
+        fetch(`https://livewind.freemyip.com/api/query?version=1&lastData=${stationId}&windData=${stationId};${now - 60*60*24};${now}`)
+            .then(res => res.json())
+            .then(data => {
+                // TODO Refactor to JSONTable parser or something
+                const lastData:any[] = data.lastData; // TODO remove any
+                const lastDataHeader = lastData[0];
+                const windData:any[] = data.windData;
+                const windDataHeader = windData[0];
+                return {
+                    lastData: lastData.slice(1).map(d => {
+                        const obj = {};
+                        lastDataHeader.forEach((h,i) => obj[h] = d[i]);
+                        return obj;
+                    }),
+                    data: windData.slice(1).map(d => {
+                        const obj = {};
+                        windDataHeader.forEach((h,i) => obj[h] = d[i]);
+                        return obj;
+                    })
+                }
+            })
+            .then(data => {
+                dispatch(endLoad(LoadableData.LastData, data.lastData));
+                dispatch(endLoad(LoadableData.Data, {
+                    stationId: stationId,
+                    data: data.data
+                }));
+            });
+    }
 }
 
 function parseCSV(csv:string):string[][] {

@@ -21,6 +21,7 @@ enum NavigationViewEnum {
 interface Station extends StationModel {
     isFavorite: boolean;
     lastData: StationData;
+    data: StationData[];
 }
 
 export { LWState, Station, View, NavigationViewEnum }

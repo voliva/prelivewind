@@ -3,5 +3,32 @@
 .section-title {
     font-size: var(--bigFontSize);
     text-align: center;
-    padding: 10px;
+    padding: 15px 5px;
+    background: var(--colorGray);
+    font-weight: bold;
+}
+.section-title:not(:first-child) {
+    margin-top: 20px;
+}
+
+.section-table {
+    margin: auto;
+    width: 95%;
+    max-width: 500px;
+}
+.section-row {
+    display: flex;
+    flex-direction: row;
+}
+.section-cell {
+    flex: 1 1;
+    padding: 10px 5px;
+}
+.section-cell__label {
+    text-align: right;
+}
+.page-station-detail .button {
+    width: 75%;
+    max-width: 500px;
+    margin: 15px auto;
 }

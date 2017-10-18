@@ -14,7 +14,8 @@ enum ActionType {
 }
 enum LoadableData {
     Stations,
-    LastData
+    LastData,
+    Data
 }
 
 interface BaseAction {

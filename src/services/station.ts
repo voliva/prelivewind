@@ -11,7 +11,11 @@ interface Station {
         id: string|number,
         name: string
     };
-    lastData?: StationData;
+    web: {
+        name: string,
+        url: string
+    };
+    lastData?: StationData; // TODO remove?
 }
 
 export default Station

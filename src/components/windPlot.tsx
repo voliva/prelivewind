@@ -1,19 +1,14 @@
 import {h, Component} from 'preact';
 import * as fetch from 'isomorphic-fetch';
 import {arrayFind, timeToString} from '../utilities';
+import StationData from '../services/stationData';
 import './windPlot.css';
 
 interface WindPlotProps {
-    stationId: string,
     startTime: number,
     endTime: number,
-    timeDiv: number
-}
-interface Data {
-    direction: number,
-    gust: number,
-    timestamp: number,
-    wind: number
+    timeDiv: number,
+    data: StationData[]
 }
 interface Scale {
     yValueToY: (y:number) => number;
@@ -38,40 +33,33 @@ const canvasHeight = canvasWidth / aspectRatio;
 export default class WindPlot extends Component<WindPlotProps,{}> {
     private _canvasElement:HTMLCanvasElement;
 
-    async componentDidMount() {
+    componentDidMount() {
         this.updateAndPaint();
     }
 
     async updateAndPaint() {
         const context = this._canvasElement.getContext('2d');
         context.clearRect(0, 0, context.canvas.width, context.canvas.height);
-        const data = await fetchData(this.props.stationId, this.props.startTime, this.props.endTime);
-        const maxWind = Math.ceil(data.reduce((max, d) => Math.max(max, d.wind || 0, d.gust || 0), minMaxWind));
+
+        const dataToDraw = this.props.data.filter(d => d.timestamp >= this.props.startTime && d.timestamp <= this.props.endTime);
+        const maxWind = Math.ceil(dataToDraw.reduce((max, d) => Math.max(max, d.wind || 0, d.gust || 0), minMaxWind));
+
         context.strokeStyle = 'black';
         const scale = drawAxis(context, maxWind, this.props);
+
         context.strokeStyle = 'blue';
-        drawPlotPath(context, data, 'wind', scale);
+        drawPlotPath(context, dataToDraw, 'wind', scale);
+
         context.strokeStyle = 'red';
-        drawPlotPath(context, data, 'gust', scale);
+        drawPlotPath(context, dataToDraw, 'gust', scale);
     }
 
     render(props:WindPlotProps) {
+        if(this._canvasElement) {
+            this.updateAndPaint();
+        }
         return <canvas className='windplot' width={canvasWidth} height={canvasHeight} ref={(r:HTMLCanvasElement) => this._canvasElement = r} />
     }
-}
-
-function fetchData(stationId:string, startTime:number, endTime:number):Data[] {
-    return fetch(`https://livewind.freemyip.com/api/query?version=1&windData=${stationId};${startTime};${endTime}`)
-        .then(res => res.json())
-        .then(data => {
-            const windData:any[] = data.windData;
-            const header = windData[0];
-            return windData.slice(1).map(d => {
-                const obj = {};
-                header.forEach((h,i) => obj[h] = d[i]);
-                return obj;
-            });
-        });
 }
 
 function drawAxis(context:CanvasRenderingContext2D, maxY:number, props:WindPlotProps):Scale {
@@ -131,11 +119,11 @@ function drawAxis(context:CanvasRenderingContext2D, maxY:number, props:WindPlotP
         xValueToX
     };
 }
-function drawPlotPath(context:CanvasRenderingContext2D, data:Data[], property:string, scale:Scale) {
+function drawPlotPath(context:CanvasRenderingContext2D, data:StationData[], property:string, scale:Scale) {
     data = data.filter(d => d[property] != undefined);
-    if(!data.length) return;
-
-    const connectDistance = scale.xValueToX(60*60) - scale.xValueToX(0);
+    if(data.length < 2) return;
+    
+    const connectDistance = 2.5 * (scale.xValueToX(data[1].timestamp) - scale.xValueToX(data[0].timestamp));
     
     context.beginPath();
     let prevX = scale.xValueToX(data[0].timestamp);

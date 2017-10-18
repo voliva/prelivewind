@@ -1,0 +1,3 @@
+-> Sembla que de universalfetch puc treure'n 6KB
+    (o el que tingui throw new TypeError("Body not allowed for GET or HEAD requests"))
+    

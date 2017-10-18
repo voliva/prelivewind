@@ -1,4 +1,4 @@
-export function arrayFind<T>(array:T[], predicate:(element:T, position:number, array:T[]) => boolean, thisArg?:any) {
+export function arrayFind<T>(array:T[], predicate:(element:T, position:number, array:T[]) => boolean, thisArg?:any):T {
     if((<any>array).find) {
         return (<any>array).find(predicate, thisArg);
     }
@@ -19,6 +19,12 @@ export function arrayFind<T>(array:T[], predicate:(element:T, position:number, a
         }
     }
     return undefined;
+}
+export function arrayMergeSortUniq<T>(arrays:T[][], property:(element:T) => any):T[] {
+    return arrays
+        .reduce((res, arr) => res.concat(arr), [])
+        .sort((a, b) => property(a) < property(b) ? -1 : 1)
+        .reduce((res, v) => !res.length || property(res[res.length-1]) !== property(v) ? res.concat([v]) : res, []);
 }
 export function timeToString(date:Date) {
     const hours = date.getHours();
