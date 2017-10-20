@@ -52,6 +52,9 @@ export default class WindPlot extends Component<WindPlotProps,{}> {
 
         context.strokeStyle = 'red';
         drawPlotPath(context, dataToDraw, 'gust', scale);
+
+        context.strokeStyle = 'green';
+        drawPolarPath(context, dataToDraw, 'direction', scale.xValueToX, scale.yValueToY(maxWind));
     }
 
     render(props:WindPlotProps) {
@@ -138,6 +141,45 @@ function drawPlotPath(context:CanvasRenderingContext2D, data:StationData[], prop
         }
         prevX = x;
     }
+    context.stroke();
+}
+
+const arrowSize = 3;
+const arrowLength = 5*3;
+function drawPolarPath(context:CanvasRenderingContext2D, data:StationData[], property:string, scaleX:(x:number) => number, yCoord) {
+    const drawArrowPath = () => {
+        context.moveTo(0, 0);
+        context.lineTo(0, arrowLength);
+        context.lineTo(-arrowSize, 3*arrowSize);
+        context.lineTo(arrowSize, 3*arrowSize);
+        context.lineTo(0, arrowLength);
+    }
+
+    const valuesToDraw = data.reduce((vtd, d) => {
+        if(typeof d[property] == null) return vtd;
+
+        const currentValue = {
+            x: scaleX(d.timestamp),
+            v: Math.PI * d[property] / 180
+        };
+        if(vtd.length == 0) return [currentValue];
+
+        const previousX = vtd[vtd.length-1].x;
+        if(previousX + 3*arrowLength/4 < currentValue.x) {
+            return [...vtd, currentValue];
+        }
+
+        return vtd;
+    }, []);
+    
+    context.beginPath();
+    valuesToDraw.forEach(vtd => {
+        context.save();
+            context.translate(vtd.x, yCoord);
+            context.rotate(vtd.v);
+            drawArrowPath();
+        context.restore();
+    });
     context.stroke();
 }
 
