@@ -1,6 +1,7 @@
 import { ActionType, Action, LoadableData } from './actionTypes';
 import { NavigationViewEnum } from './stateType';
 import Station from '../services/station';
+import {dateToString} from '../utilities';
 import * as fetch from 'isomorphic-fetch';
 
 export function navigate(view:NavigationViewEnum, params:any):Action {
@@ -75,15 +76,7 @@ export function loadGeneralData(dataToLoad:LoadableData[]):(dispatch) => void {
                 case LoadableData.LastData:
                     fetch('https://livewind.freemyip.com/api/query?version=1&lastData=all')
                         .then(res => res.json())
-                        .then(data => {
-                            const lastData:any[] = data.lastData;
-                            const header = lastData[0];
-                            return lastData.slice(1).map(d => {
-                                const obj = {};
-                                header.forEach((h,i) => obj[h] = d[i]);
-                                return obj;
-                            });
-                        })
+                        .then(data => parseJSONTable(data.lastData))
                         .then(data => dispatch(endLoad(req, data)));
                     break;
                 default:
@@ -103,22 +96,9 @@ export function loadCurrentStationData(stationId:string):(dispatch) => void {
         fetch(`https://livewind.freemyip.com/api/query?version=1&lastData=${stationId}&windData=${stationId};${now - 60*60*24};${now}`)
             .then(res => res.json())
             .then(data => {
-                // TODO Refactor to JSONTable parser or something
-                const lastData:any[] = data.lastData; // TODO remove any
-                const lastDataHeader = lastData[0];
-                const windData:any[] = data.windData;
-                const windDataHeader = windData[0];
                 return {
-                    lastData: lastData.slice(1).map(d => {
-                        const obj = {};
-                        lastDataHeader.forEach((h,i) => obj[h] = d[i]);
-                        return obj;
-                    }),
-                    data: windData.slice(1).map(d => {
-                        const obj = {};
-                        windDataHeader.forEach((h,i) => obj[h] = d[i]);
-                        return obj;
-                    })
+                    lastData: parseJSONTable(data.lastData),
+                    data: parseJSONTable(data.windData)
                 }
             })
             .then(data => {
@@ -129,6 +109,20 @@ export function loadCurrentStationData(stationId:string):(dispatch) => void {
                 }));
             });
     }
+}
+
+export function changePlotDate(stationId:string, startTime:number, endTime:number):(dispatch) => void {
+    return dispatch => {
+        dispatch({type: ActionType.ChangePlotDate, startTime, endTime, timeValue: dateToString(new Date(startTime * 1000))});
+        dispatch(startLoad(LoadableData.Data));
+        fetch(`https://livewind.freemyip.com/api/query?version=1&windData=${stationId};${startTime};${endTime}`)
+            .then(res => res.json())
+            .then(data => parseJSONTable(data.windData))
+            .then(data => dispatch(endLoad(LoadableData.Data, {
+                stationId: stationId,
+                data
+            })));
+    };
 }
 
 function parseCSV(csv:string):string[][] {
@@ -154,4 +148,13 @@ function parseCSV(csv:string):string[][] {
     }
     return csv.split('\n')
         .map(l => parseLine(l.trim()));
+}
+
+function parseJSONTable<T>(table:any[][]):T[] {
+    const header = table[0];
+    return table.slice(1).map(d => {
+        const obj:T = {} as T;
+        header.forEach((h,i) => obj[h] = d[i]);
+        return obj;
+    });
 }

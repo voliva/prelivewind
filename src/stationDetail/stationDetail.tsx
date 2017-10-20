@@ -1,13 +1,13 @@
 import { h, Component, ComponentProps } from 'preact';
 import { Dispatch } from 'redux';
 import { connect } from 'preact-redux';
-import { LWState, Station } from '../redux/stateType';
+import { LWState, Station, NavigationViewEnum } from '../redux/stateType';
 import * as classnames from 'classnames';
 import WindPlot from '../components/windPlot';
 import Button from '../components/button';
 import './stationDetail.css';
-import {arrayFind, timeToString} from '../utilities';
-import { loadCurrentStationData } from '../redux/actions';
+import {arrayFind, timeToString, calculateCanvasSize} from '../utilities';
+import { loadCurrentStationData, navigate } from '../redux/actions';
 import StationData from '../services/stationData';
 
 interface StationDetailStateProps {
@@ -15,6 +15,7 @@ interface StationDetailStateProps {
 }
 interface StationDetailDispatchProps {
     loadCurrentStationData: (stationId:string) => void;
+    onPlotClick: (stationId:string) => void;
 }
 interface StationDetailProps extends StationDetailStateProps, StationDetailDispatchProps {
     className?: string;
@@ -27,7 +28,12 @@ const mapStateToProps = (state:LWState):StationDetailStateProps => {
 }
 
 const mapDispatchToProps = (dispatch:Dispatch<LWState>):StationDetailDispatchProps => ({
-    loadCurrentStationData: (stationId:string) => dispatch(loadCurrentStationData(stationId))
+    loadCurrentStationData: (stationId:string) => dispatch(loadCurrentStationData(stationId)),
+    onPlotClick: (stationId:string) => {
+        dispatch(navigate(NavigationViewEnum.PlotDetail, {
+            id: stationId
+        }));
+    },
 });
 
 const dataPropMap = {
@@ -61,6 +67,7 @@ const dataPropMap = {
     }
 }
 
+const canvasSize = calculateCanvasSize(6/5, window.innerWidth * 0.95, 400);
 class StationDetail extends Component<StationDetailProps, {}> {
     componentDidMount() {
         this.props.loadCurrentStationData(this.props.station.id)
@@ -86,10 +93,12 @@ class StationDetail extends Component<StationDetailProps, {}> {
         return <div className={classnames('page-station-detail', props.className)}>
             <div class='section-title'>Últimes 24 hores</div>
             <WindPlot
+                canvasWidth={canvasSize.width}
+                canvasHeight={canvasSize.height}
                 endTime={now}
                 startTime={now - 60*60*24}
-                timeDiv={60*60*6}
                 data={props.station.data}
+                onClick={() => props.onPlotClick(props.station.id)}
                 />
             
             <div class='section-title'>Últimes dades - { props.station.lastData ?

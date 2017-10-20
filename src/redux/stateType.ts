@@ -15,7 +15,8 @@ interface View {
 }
 enum NavigationViewEnum {
     StationList,
-    StationDetail
+    StationDetail,
+    PlotDetail
 }
 
 interface Station extends StationModel {

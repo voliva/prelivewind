@@ -1,0 +1,32 @@
+TODO MVP
+-> Loader
+-> Persist state
+    -> URL-based routing
+-> Windplot
+    -> Color styles
+    -> Direction arrow size based on canvas size instead of fixed
+    -> Replicate Y axis
+-> Ads
+-> Disable favoritos view if there are none
+-> Wind direction arrow
+-> Test with connectivity issues (disconnects, etc.)
+
+BUGS
+    -> When stations.csv is loaded after `query`, it wipes lastData
+    -> When state is inconsistent (provokes crash) it's imposible to recover
+
+Optimitzacions
+-> Sembla que de universalfetch puc treure'n 6KB
+    (o el que tingui throw new TypeError("Body not allowed for GET or HEAD requests"))
+
+TODO
+-> He de revisar els models:
+    -> Separar serivces/models de redux/stateModel
+    -> Intentar que estigui tot tipat
+-> No carregar dades si ja estan carregades
+-> Actualitzar dades de la finestra actual cada 5 minuts (stationList, stationDetail, plotDetail<today>)
+-> Afegir tests automàtics (e2e i unit a la reductora)
+-> Acabar Plot detail
+    -> Choose data to view (temperature, etc.)
+    -> Datespan picker
+       -> WindPlot multiday view

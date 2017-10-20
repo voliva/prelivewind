@@ -5,10 +5,12 @@ import StationData from '../services/stationData';
 import './windPlot.css';
 
 interface WindPlotProps {
+    canvasWidth: number,
+    canvasHeight: number,
     startTime: number,
     endTime: number,
-    timeDiv: number,
-    data: StationData[]
+    data: StationData[],
+    onClick?: () => void
 }
 interface Scale {
     yValueToY: (y:number) => number;
@@ -18,17 +20,6 @@ const minMaxWind = 8;
 const fontSize = 14;
 const tickSize = 7;
 const tickMargin = 5;
-const aspectRatio = 6/5;
-const baseResolution = 400;
-const scaledSizeVP = 0.95; // real width that will take the plot, in % to viewport width
-
-// This is made so starting at width `baseResolution`, every time we double the screen width
-// we double the area of the canvas (not the width). For smaller screens than `baseResolution`
-// it will be linear.
-const windowWidth = window.innerWidth * scaledSizeVP;
-const canvasWidth = windowWidth < baseResolution ? windowWidth :
-    Math.sqrt(baseResolution * windowWidth);
-const canvasHeight = canvasWidth / aspectRatio;
 
 export default class WindPlot extends Component<WindPlotProps,{}> {
     private _canvasElement:HTMLCanvasElement;
@@ -61,7 +52,12 @@ export default class WindPlot extends Component<WindPlotProps,{}> {
         if(this._canvasElement) {
             this.updateAndPaint();
         }
-        return <canvas className='windplot' width={canvasWidth} height={canvasHeight} ref={(r:HTMLCanvasElement) => this._canvasElement = r} />
+        return <canvas
+            className='windplot'
+            width={props.canvasWidth}
+            height={props.canvasHeight}
+            ref={(r:HTMLCanvasElement) => this._canvasElement = r}
+            onClick={props.onClick} />
     }
 }
 
@@ -149,10 +145,11 @@ const arrowLength = 5*3;
 function drawPolarPath(context:CanvasRenderingContext2D, data:StationData[], property:string, scaleX:(x:number) => number, yCoord) {
     const drawArrowPath = () => {
         context.moveTo(0, 0);
-        context.lineTo(0, arrowLength);
+        context.lineTo(0, 3*arrowSize);
         context.lineTo(-arrowSize, 3*arrowSize);
-        context.lineTo(arrowSize, 3*arrowSize);
         context.lineTo(0, arrowLength);
+        context.lineTo(arrowSize, 3*arrowSize);
+        context.lineTo(0, 3*arrowSize);
     }
 
     const valuesToDraw = data.reduce((vtd, d) => {

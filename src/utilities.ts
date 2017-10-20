@@ -32,3 +32,28 @@ export function timeToString(date:Date) {
     return (hours < 10 ? '0' : '') + hours + ':' +
         (minutes < 10 ? '0' : '') + minutes;
 }
+export function dateToString(date:Date) {
+    const day = date.getDate();
+    const month = date.getMonth();
+    const year = date.getFullYear();
+    return (day < 10 ? '0' : '') + day + "/" +
+        (month < 10 ? '0' : '') + month + "/" +
+        year;
+}
+
+// This is made so starting at size `baseResolution`, every time we double the screen size
+// we double the area of the canvas. For smaller screens than `baseResolution`
+// the size decrease will be linear, because we don't want to underscale (weird antialising then)
+export function calculateCanvasSize(
+    aspectRatio,
+    windowSize,
+    baseResolution
+) {
+    const canvasWidth = windowSize < baseResolution ? windowSize :
+        Math.sqrt(baseResolution * windowSize);
+    const canvasHeight = canvasWidth / aspectRatio;
+    return {
+        width: canvasWidth,
+        height: canvasHeight
+    };
+}

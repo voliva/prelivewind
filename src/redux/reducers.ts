@@ -1,4 +1,4 @@
-import { LWState, Station, View } from './stateType';
+import { LWState, Station, View, NavigationViewEnum } from './stateType';
 import { Action, ActionType, LoadableData } from './actionTypes';
 import { combineReducers } from 'redux';
 import { arrayFind, arrayMergeSortUniq } from '../utilities';
@@ -9,6 +9,20 @@ function currentView(state:View = null, action: Action):View {
     switch(action.type) {
         case ActionType.Navigation:
             return action.view;
+        case ActionType.ChangePlotDate:
+            if(state.view === NavigationViewEnum.PlotDetail) {
+                return {
+                    view: state.view,
+                    params: {
+                        ...state.params,
+                        time: {
+                            start: action.startTime,
+                            end: action.endTime,
+                            value: action.timeValue
+                        }
+                    }
+                }
+            }
     }
     return state;
 }

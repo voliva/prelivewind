@@ -8,13 +8,19 @@ interface HeaderProps {
     starButtonState?:'active'|'default';
     onBackClick?:() => void;
     onStarClick?:() => void;
+    onDateClick?:(direction:string) => void;
 }
 
 const Header = (props:HeaderProps) => (
     <header className='app-header'>
-        {props.hasBackButton ? <Icon type='arrowBack' className="app-header__left-btn" onClick={props.onBackClick} /> : null}
         <span className='app-header__title'>{props.title}</span>
-        {props.starButtonState ? <Icon type='star' className="app-header__right-btn" onClick={props.onStarClick} fill={props.starButtonState === 'active'}/> : null }
+        <div className='app-header__buttons'>
+            {props.hasBackButton ? <Icon type='arrowBack' className="app-header__btn" onClick={props.onBackClick} /> : null}
+            <div className='app-header__btn-separator'></div>
+            {props.starButtonState ? <Icon type='star' className="app-header__btn" onClick={props.onStarClick} fill={props.starButtonState === 'active'}/> : null }
+            {props.onDateClick ? <Icon type='calendar--left' className="app-header__btn" onClick={() => props.onDateClick('left')} /> : null }
+            {props.onDateClick ? <Icon type='calendar--right' className="app-header__btn" onClick={() => props.onDateClick('right')} /> : null }
+        </div>
     </header>
 )
 

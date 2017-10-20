@@ -10,7 +10,8 @@ enum ActionType {
     StartDataLoad = 'StartDataLoad',
     DataLoaded = 'DataLoaded',
     DataLoadError = 'DataLoadError',
-    ToggleFavorito = 'ToggleFavorito'
+    ToggleFavorito = 'ToggleFavorito',
+    ChangePlotDate = 'ChangePlotDate'
 }
 enum LoadableData {
     Stations,
@@ -53,7 +54,13 @@ interface SwitchStationListSelectedTab extends BaseAction {
     type: ActionType.SwitchStationListSelectedTab;
     tabId: string;
 }
+interface ChangePlotDate extends BaseAction {
+    type: ActionType.ChangePlotDate;
+    startTime: number;
+    endTime: number;
+    timeValue: string
+}
 
 type Action = GenericAction | SwitchStationListSelectedTab | Navigation
-    | DataLoaded<any> | DataLoadError | StartDataLoad | ToggleFavorito;
+    | DataLoaded<any> | DataLoadError | StartDataLoad | ToggleFavorito | ChangePlotDate;
 export {ActionType, Action, LoadableData};

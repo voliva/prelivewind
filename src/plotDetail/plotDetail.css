@@ -1,0 +1,16 @@
+.page-plot-detail .windplot {
+	width: auto;
+	height: 100%;
+	box-sizing: border-box;
+	padding: 10px;
+}
+.plot-detail__date {
+	position: absolute;
+	left: 50%;
+	top: 0px;
+	transform: translateX(-50%);
+	text-align: center;
+	background: rgba(255,255,255,0.5);
+	padding: 3px 10px;
+	border-radius: 0px 0px 10px 10px;
+}
