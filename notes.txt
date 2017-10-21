@@ -4,12 +4,11 @@ TODO MVP
     -> URL-based routing
 -> Windplot
     -> Color styles
-    -> Direction arrow size based on canvas size instead of fixed
-    -> Replicate Y axis
 -> Ads
 -> Disable favoritos view if there are none
 -> Wind direction arrow
 -> Test with connectivity issues (disconnects, etc.)
+-> Globally increase font size
 
 BUGS
     -> When stations.csv is loaded after `query`, it wipes lastData

@@ -35,16 +35,15 @@ export default class WindPlot extends Component<WindPlotProps,{}> {
         const dataToDraw = this.props.data.filter(d => d.timestamp >= this.props.startTime && d.timestamp <= this.props.endTime);
         const maxWind = Math.ceil(dataToDraw.reduce((max, d) => Math.max(max, d.wind || 0, d.gust || 0), minMaxWind));
 
-        context.strokeStyle = 'black';
         const scale = drawAxis(context, maxWind, this.props);
 
-        context.strokeStyle = 'blue';
+        context.strokeStyle = '#4151E1';
         drawPlotPath(context, dataToDraw, 'wind', scale);
 
-        context.strokeStyle = 'red';
+        context.strokeStyle = '#E14141';
         drawPlotPath(context, dataToDraw, 'gust', scale);
 
-        context.strokeStyle = 'green';
+        context.strokeStyle = '#33B033';
         drawPolarPath(context, dataToDraw, 'direction', scale.xValueToX, scale.yValueToY(maxWind));
     }
 
@@ -75,28 +74,7 @@ function drawAxis(context:CanvasRenderingContext2D, maxY:number, props:WindPlotP
     const marginRight = semicolonWidth / 2 + 2*numberWidth;
     const ySpace = height - xAxisMargin - marginTop;
     const xSpace = width - yAxisMargin - marginRight;
-    const yStep = getYStep(maxY, ySpace);
-    const xStep = getXStep(props.endTime - props.startTime, xSpace);
-    const yValueToY = (yValue:number) => marginTop + ySpace * (1 - yValue / maxY);
-    const xValueToX = (xValue:number) => yAxisMargin + xSpace * (xValue - props.startTime) / (props.endTime - props.startTime);
 
-    context.font = `${fontSize}px Arial`;
-    // Axis
-    context.beginPath();
-    context.moveTo(yAxisMargin, marginTop);
-    context.lineTo(yAxisMargin, height-marginBottom);
-    context.moveTo(marginLeft, height-xAxisMargin);
-    context.lineTo(width-marginRight, height-xAxisMargin);
-
-    // Y-ticks
-    for(let yValue=0; yValue<=maxY; yValue+=yStep) {
-        const y = yValueToY(yValue);
-        context.moveTo(yAxisMargin-tickSize/2, y);
-        context.lineTo(yAxisMargin+tickSize/2, y);
-        context.strokeText(`${yValue}`, 0, y+numberHeight/2);
-    }
-
-    // X-ticks
     const timezoneOffset = (new Date()).getTimezoneOffset() * 60;
     const xValueStart =
         Math.floor(
@@ -104,20 +82,104 @@ function drawAxis(context:CanvasRenderingContext2D, maxY:number, props:WindPlotP
             / (60*60*24)
         ) * (60*60*24) + timezoneOffset;
 
-    for(let xValue=xValueStart; xValue<=props.endTime; xValue+=xStep) {
-        const x = xValueToX(xValue);
-        if(x < yAxisMargin) continue;
-        context.moveTo(x, height - xAxisMargin - tickSize/2);
-        context.lineTo(x, height - xAxisMargin + tickSize/2);
-        context.strokeText(timeToString(new Date(xValue*1000)), x-marginRight, height-1);
-    }
+    context.strokeStyle = 'black';
+    context.beginPath();
+    context.font = `${fontSize}px Arial`;
+
+    // Axis
+    context.save();
+    context.translate(yAxisMargin, height-xAxisMargin);
+    const yValueToTransY = drawYAxis(context, numberWidth, numberHeight, ySpace, maxY, xAxisMargin - marginBottom);
+    const {xValueToTransX, xTicks} = drawXAxis(context, numberWidth, numberHeight, xSpace, yAxisMargin - marginLeft, xValueStart, props.startTime, props.endTime);
+    context.restore();
     context.stroke();
+
+    const yValueToY = (yValue:number) => yValueToTransY(yValue) + (height-xAxisMargin);
+    const xValueToX = (xValue:number) => xValueToTransX(xValue) + yAxisMargin;
     
+    context.strokeStyle = 'gray';
+    context.font = `${fontSize*3/4}px Arial`;
+    xTicks.forEach(x => {
+        if(x < 4*numberWidth) return;
+        context.save();
+        context.translate(yAxisMargin + x, height-xAxisMargin);
+        drawYAxis(context, numberWidth*3/4, numberHeight*3/4, ySpace, maxY, xAxisMargin - marginBottom);
+        context.restore();
+    });
+    context.stroke();
+
     return {
         yValueToY,
         xValueToX
     };
 }
+function drawYAxis(
+    context:CanvasRenderingContext2D,
+    numberWidth:number,
+    numberHeight:number,
+    axisSize:number,
+    maxYValue:number,
+    overflow:number
+) {
+    const minPxPerTick = 40;
+    const pixelsPerYValue = axisSize / maxYValue;
+    const minYValuePerTick = minPxPerTick / pixelsPerYValue; // Asuming ticks are minimum distance, what's the distance between two ticks in y-value?
+    const yStep = Math.ceil(minYValuePerTick / 2) * 2; // Qualsevol nombre parell
+    const yValueToY = (yValue:number) => -axisSize * yValue / maxYValue;
+
+    // Axis
+    context.moveTo(0, -axisSize);
+    context.lineTo(0, overflow);
+
+    // Y-ticks
+    for(let yValue=yStep; yValue<=maxYValue; yValue+=yStep) {
+        const y = yValueToY(yValue);
+        context.moveTo(tickSize/2, y);
+        context.lineTo(-tickSize/2, y);
+        const value = `${yValue}`;
+        context.strokeText(value, -(numberWidth*value.length+tickSize), y+numberHeight/2);
+    }
+    return yValueToY;
+}
+function drawXAxis(
+    context:CanvasRenderingContext2D,
+    numberWidth:number,
+    numberHeight:number,
+    axisSize:number,
+    overflow:number,
+    startValue:number,
+    startVisibleValue:number,
+    endValue:number
+) {
+    const minPxPerTick = 65;
+    const xDivisions = [60*4,60*6,60*8,60*12,60*24]
+        .map(minutes => minutes*60);
+    const pixelsPerXValue = axisSize / (endValue - startVisibleValue);
+    const minXValuePerTick = minPxPerTick / pixelsPerXValue;
+    const xStep = arrayFind(xDivisions, div => minXValuePerTick < div) ||
+        xDivisions[xDivisions.length - 1];
+    const xValueToX = (xValue:number) => axisSize * (xValue - startVisibleValue) / (endValue - startVisibleValue);
+
+    context.moveTo(-overflow, 0);
+    context.lineTo(axisSize, 0);
+
+    // X-ticks
+    let ticks = [];
+    for(let xValue=startValue; xValue<=endValue; xValue += xStep) {
+        const x = xValueToX(xValue);
+        if(x < 0) continue;
+        ticks.push(x);
+        context.moveTo(x, -tickSize/2);
+        context.lineTo(x, tickSize/2);
+        context.strokeText(timeToString(new Date(xValue*1000)), x-numberWidth*2, tickSize + numberHeight);
+    }
+
+    return {
+        xValueToTransX: xValueToX,
+        xTicks: ticks
+    };
+}
+
 function drawPlotPath(context:CanvasRenderingContext2D, data:StationData[], property:string, scale:Scale) {
     data = data.filter(d => d[property] != undefined);
     if(data.length < 2) return;
@@ -140,9 +202,10 @@ function drawPlotPath(context:CanvasRenderingContext2D, data:StationData[], prop
     context.stroke();
 }
 
-const arrowSize = 3;
-const arrowLength = 5*3;
 function drawPolarPath(context:CanvasRenderingContext2D, data:StationData[], property:string, scaleX:(x:number) => number, yCoord) {
+    const arrowSize = 3;
+    const arrowLength = 5*arrowSize;
+
     const drawArrowPath = () => {
         context.moveTo(0, 0);
         context.lineTo(0, 3*arrowSize);
@@ -178,23 +241,4 @@ function drawPolarPath(context:CanvasRenderingContext2D, data:StationData[], pro
         context.restore();
     });
     context.stroke();
-}
-
-const minPxPerTick = {
-    x: 60,
-    y: 40
-};
-function getYStep(maxY, space) {
-    const pixelsPerYValue = space / maxY;
-    const minYValuePerTick = minPxPerTick.y / pixelsPerYValue; // Asuming ticks are minimum distance, what's the distance between two ticks in y-value?
-    return Math.ceil(minYValuePerTick / 2) * 2; // Qualsevol nombre parell
-}
-const xDivisions = [15,30,60,60*2,60*3,60*4,60*6,60*8,60*12,60*24]
-    .map(minutes => minutes*60);
-function getXStep(maxX, space) {
-    const pixelsPerXValue = space / maxX;
-    const minXValuePerTick = minPxPerTick.x / pixelsPerXValue;
-
-    return arrayFind(xDivisions, div => minXValuePerTick < div) ||
-        xDivisions[xDivisions.length - 1];
 }
