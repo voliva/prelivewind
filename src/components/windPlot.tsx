@@ -180,6 +180,45 @@ function drawXAxis(
     };
 }
 
+function suavise(data:StationData[], iData:number, property:string, preserveMax:boolean) {
+    const suavisationFactor = 2;
+    const startTS = data[iData].timestamp-suavisationFactor*5*60;
+    const endTS = data[iData].timestamp+suavisationFactor*5*60;
+    let start, end;
+    for(start=iData; start >= 0; start--) {
+        if(data[start].timestamp <= startTS) {
+            start = Math.min(start, iData);
+            break;
+        }
+    }
+    for(end=iData; end < data.length; end++) {
+        if(data[end].timestamp >= endTS) {
+            end = Math.max(end, iData);
+            break;
+        }
+    }
+    const dataGroup = data.slice(start, end+1)
+        .map(d => d[property]);
+
+    const iMax = dataGroup
+        .reduce((t, v, i) => ({
+            iMax: v > t.max ? i : t.iMax,
+            max: Math.max(t.max, v)
+        }), {iMax:null, max:0})
+        .iMax;
+    if(preserveMax && iMax === iData-start) {
+        return data[iData][property];
+    }
+    const result = dataGroup
+        .reduce((t, v, i) => {
+            const factor = (preserveMax && i === iMax) ? (dataGroup.length/2) / Math.abs(iMax-(iData-start)) : 1;
+            return {
+                n: t.n + factor,
+                v: t.v + v*factor
+            }
+        }, {n:0, v:0});
+    return result.v / result.n;
+}
 function drawPlotPath(context:CanvasRenderingContext2D, data:StationData[], property:string, scale:Scale) {
     data = data.filter(d => d[property] != undefined);
     if(data.length < 2) return;
@@ -191,7 +230,10 @@ function drawPlotPath(context:CanvasRenderingContext2D, data:StationData[], prop
     context.moveTo(prevX, scale.yValueToY(data[0][property]));
     for(let i=1; i<data.length; i++) {
         const x = scale.xValueToX(data[i].timestamp);
-        const y = scale.yValueToY(data[i][property]);
+
+        const preserveMax = property === 'gust' ? true : false;
+        const suavised = suavise(data, i, property, preserveMax);
+        const y = scale.yValueToY(suavised);
         if(x-prevX > connectDistance) {
             context.moveTo(x, y);
         }else {
