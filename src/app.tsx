@@ -105,17 +105,18 @@ class PreLivewind extends Component<any, any> {
 const app = document.querySelector('#app');
 const splash = app.querySelector('.splash');
 const App = connect(mapStateToProps, mapDispatchToProps)(PreLivewind);
-render(<Provider store={store}>
-    <App />
-</Provider>, app, splash);
+const bootstrap = () => {
+    render(<Provider store={store}>
+        <App />
+    </Provider>, app, splash);
+}
 
-import * as Bluebird from 'bluebird';
-declare global {
-    const Promise: {
-        new <R>(callback: (
-            resolve: (thenableOrResult?: R | PromiseLike<R>) => void,
-            reject: (error?: any) => void,
-            onCancel?: (callback: () => void) => void
-        ) => void): Bluebird<R>;
-    };
+if((window as any).Promise == null) {
+    const s = document.createElement('script');
+    document.head.appendChild(s);
+    s.onload = () => bootstrap();
+    s.src = 'https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.auto.min.js';
+    s.type = 'text/javascript';
+}else {
+    bootstrap();
 }
