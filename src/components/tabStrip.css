@@ -21,3 +21,6 @@
     color: var(--colorDarkLivewind);
     border-color: var(--colorDarkLivewind);
 }
+.tab-strip__tab--disabled {
+    color: var(--colorDarkGray);
+}

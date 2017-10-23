@@ -10,7 +10,7 @@ const initialState:LWState = {
     },
     viewStack: [],
     hasAcceptedCookies: false,
-    stationListSelectedTab: 'fav',
+    stationListSelectedTab: 'all',
     stationList: []
 }
 

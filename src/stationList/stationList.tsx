@@ -36,14 +36,6 @@ const mapDispatchToProps = (dispatch:Dispatch<LWState>) => ({
     }
 });
 
-const tabs = [{
-    id: 'fav',
-    title: 'Favoritas'
-},{
-    id: 'all',
-    title: 'Todas'
-}];
-
 const groupBy = function<T>(
     arr:T[],
     key:(v:T) => string,
@@ -106,9 +98,20 @@ class SelectedStationsSummary extends Component<SelectedStationsSummaryProps, {}
             }, []);
         }
 
+        const tabs = [{
+            id: 'all',
+            title: 'Todas'
+        },{
+            id: 'fav',
+            title: 'Favoritas',
+            isDisabled: !props.stations.filter(s => s.isFavorite).length
+        }];
 
         return <div className={classnames('page-station-list', props.className)}>
-            <TabStrip tabs={tabs} selectedTabId={props.selectedTabId} onTabSelected={props.switchSelectedTab} />
+            <TabStrip
+                tabs={tabs}
+                selectedTabId={props.selectedTabId}
+                onTabSelected={props.switchSelectedTab} />
             {stationList}
         </div>
     }

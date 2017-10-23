@@ -115,6 +115,9 @@ class StationDetail extends Component<StationDetailProps, {}> {
             : <div>No hi ha dades recents</div>}
 
             <Button 
+                onClick={() => props.onPlotClick(props.station.id)}
+                text='Grafic del dia' />
+            <Button 
                 onClick={this.visitWeb}
                 text={props.station.web && props.station.web.name} />
         </div>

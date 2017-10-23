@@ -11,12 +11,19 @@ interface HeaderProps {
     onDateClick?:(direction:string) => void;
 }
 
+const onClick = () => {
+    const elm = document.querySelector('.livewind__page');
+    if(elm) {
+        elm.scrollTo(0, 0);
+    }
+}
+
 const Header = (props:HeaderProps) => (
     <header className='app-header'>
         <span className='app-header__title'>{props.title}</span>
         <div className='app-header__buttons'>
             {props.hasBackButton ? <Icon type='arrowBack' className="app-header__btn" onClick={props.onBackClick} /> : null}
-            <div className='app-header__btn-separator'></div>
+            <div className='app-header__btn-separator' onClick={onClick}></div>
             {props.starButtonState ? <Icon type='star' className="app-header__btn" onClick={props.onStarClick} fill={props.starButtonState === 'active'}/> : null }
             {props.onDateClick ? <Icon type='calendar--left' className="app-header__btn" onClick={() => props.onDateClick('left')} /> : null }
             {props.onDateClick ? <Icon type='calendar--right' className="app-header__btn" onClick={() => props.onDateClick('right')} /> : null }

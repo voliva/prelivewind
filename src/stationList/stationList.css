@@ -2,7 +2,7 @@
 
 .station-header {
     position: relative;
-    height: 36px;
+    height: 46px;
     padding: 0;
 }
 .station-header__star {
@@ -13,7 +13,7 @@
 .station-header__name {
     display: inline-block;
     vertical-align: middle;
-    line-height: 36px;
+    line-height: 46px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -32,22 +32,24 @@
     border-top: 1px solid var(--colorNotWhite);
 }
 .station-header__mean {
-    flex: 16px 1 0;
+    flex: 28px 1 0;
     padding-right: 5px;
-    line-height: 36px;
+    line-height: 46px;
 }
 .station-header__mean.has-gust {
-    line-height: 22px;
+    line-height: 28px;
 }
 .station-header__gust {
-    flex: 14px 1 0;
+    flex: 18px 1 0;
     padding-right: 5px;
     font-size: 0.7em;
-    line-height: 14px;
+    line-height: 18px;
 }
 .station-header__direction {
-    margin-right: 0.5em;
-    font-size: 0.9em;
+    margin-left: 0.5em;
+    margin-right: 5px;
+    height: 20px;
+    vertical-align: middle;
 }
 
 .separator {

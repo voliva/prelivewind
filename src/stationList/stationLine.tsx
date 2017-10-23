@@ -19,13 +19,16 @@ const StationLine = (props:StationLineProps) => {
     const showWind = lastData && lastData.wind != null;
     const showGust = showWind && lastData.gust != null && lastData.gust > lastData.wind;
 
+    const directionStyle = {
+        transform: `rotate(${lastData && lastData.direction}deg)`
+    };
+
     const direction = lastData && lastData.direction != null ?
         `${formatNumber(lastData.direction)}º` : '';
     const windLine = showWind ?
         <div className={classnames('station-header__mean',{'has-gust': showGust})}
             style={getStyle(lastData.wind)}>
-            <span className='station-header__direction'>{direction}</span>
-            {formatNumber(lastData.wind)}kts
+            {formatNumber(lastData.wind)}kts{lastData && lastData.direction != null && <Icon className='station-header__direction' type='windArrow' style={directionStyle} /> }
         </div> : null;
     const gustLine = showGust ?
         <div className='station-header__gust'
@@ -37,7 +40,7 @@ const StationLine = (props:StationLineProps) => {
         props.onStarClick(props.station);
     }
     const star = props.onStarClick ?
-        <Icon className='station-header__star' type='star' fill={props.station.isFavorite}  onClick={onStarClick}/>
+        <Icon className='station-header__star' type='star' fill={props.station.isFavorite} onClick={onStarClick}/>
         : null;
 
     return <div onClick={() => props.onClick(props.station)} className={classnames('station-header', props.className)}>
@@ -61,8 +64,16 @@ function formatDirection(n) {
     if(n > 202 && n < 338) ret = ret + 'W';
     return ret;
 }
+
+const decimalPlaces = 0;
+const mult = (() => {
+    let res = 1;
+    for(let i=0; i<decimalPlaces; i++)
+        res *= 10;
+    return res;
+})();
 function formatNumber(n:number):string {
-    return `${Math.round(n * 10) / 10}`;
+    return `${Math.round(n * mult) / mult}`;
 }
 
 function getStyle(wind:number) {

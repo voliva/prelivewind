@@ -5,7 +5,8 @@ import './tabStrip.css';
 interface TabStripProps {
     tabs: {
         id: string,
-        title: string
+        title: string,
+        isDisabled?: boolean
     }[],
     selectedTabId: string,
     onTabSelected: (id:string) => void
@@ -17,9 +18,10 @@ const TabStrip = ({tabs, selectedTabId, onTabSelected}: TabStripProps) => (
         <div
             className={classnames(
                 'tab-strip__tab', {
+                'tab-strip__tab--disabled': tab.isDisabled,
                 'tab-strip__tab--selected': tab.id === selectedTabId
             })}
-            onClick={() => onTabSelected(tab.id)}>
+            onClick={() => !tab.isDisabled && onTabSelected(tab.id)}>
             {tab.title}
         </div>)}
     </div>

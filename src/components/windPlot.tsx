@@ -180,19 +180,20 @@ function drawXAxis(
     };
 }
 
-function suavise(data:StationData[], iData:number, property:string, preserveMax:boolean) {
-    const suavisationFactor = 2;
-    const startTS = data[iData].timestamp-suavisationFactor*5*60;
-    const endTS = data[iData].timestamp+suavisationFactor*5*60;
+function suavise(data:StationData[], iData:number, property:string, preserveMax:boolean, scale:Scale) {
+    const suavisationFactor = 3;
+    const currentX = scale.xValueToX(data[iData].timestamp);
+    const startX = currentX - suavisationFactor;
+    const endX = currentX + suavisationFactor;
     let start, end;
     for(start=iData; start >= 0; start--) {
-        if(data[start].timestamp <= startTS) {
+        if(scale.xValueToX(data[start].timestamp) <= startX) {
             start = Math.min(start, iData);
             break;
         }
     }
     for(end=iData; end < data.length; end++) {
-        if(data[end].timestamp >= endTS) {
+        if(scale.xValueToX(data[end].timestamp) >= endX) {
             end = Math.max(end, iData);
             break;
         }
@@ -232,7 +233,7 @@ function drawPlotPath(context:CanvasRenderingContext2D, data:StationData[], prop
         const x = scale.xValueToX(data[i].timestamp);
 
         const preserveMax = property === 'gust' ? true : false;
-        const suavised = suavise(data, i, property, preserveMax);
+        const suavised = suavise(data, i, property, preserveMax, scale);
         const y = scale.yValueToY(suavised);
         if(x-prevX > connectDistance) {
             context.moveTo(x, y);
@@ -257,22 +258,22 @@ function drawPolarPath(context:CanvasRenderingContext2D, data:StationData[], pro
         context.lineTo(0, 3*arrowSize);
     }
 
-    const valuesToDraw = data.reduce((vtd, d) => {
-        if(typeof d[property] == null) return vtd;
+    const valuesToDraw = data
+        .filter(d => d[property] != null)
+        .reduce((vtd, d) => {
+            const currentValue = {
+                x: scaleX(d.timestamp),
+                v: Math.PI * d[property] / 180
+            };
+            if(vtd.length == 0) return [currentValue];
 
-        const currentValue = {
-            x: scaleX(d.timestamp),
-            v: Math.PI * d[property] / 180
-        };
-        if(vtd.length == 0) return [currentValue];
+            const previousX = vtd[vtd.length-1].x;
+            if(previousX + 3*arrowLength/4 < currentValue.x) {
+                return [...vtd, currentValue];
+            }
 
-        const previousX = vtd[vtd.length-1].x;
-        if(previousX + 3*arrowLength/4 < currentValue.x) {
-            return [...vtd, currentValue];
-        }
-
-        return vtd;
-    }, []);
+            return vtd;
+        }, []);
     
     context.beginPath();
     valuesToDraw.forEach(vtd => {

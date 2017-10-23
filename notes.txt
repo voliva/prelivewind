@@ -2,13 +2,9 @@ TODO MVP
 -> Loader
 -> Persist state
     -> URL-based routing
--> Windplot
-    -> Color styles
+    -> Cleanup historic data every now and then.
 -> Ads
--> Disable favoritos view if there are none
--> Wind direction arrow
 -> Test with connectivity issues (disconnects, etc.)
--> Globally increase font size
 
 BUGS
     -> When stations.csv is loaded after `query`, it wipes lastData

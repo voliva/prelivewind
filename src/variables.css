@@ -1,8 +1,8 @@
 :root {
     --headerHeight: 39px;
-    --baseFontSize: 14px;
-    --bigFontSize: 16px;
-    --smallFontSize: 12px;
+    --baseFontSize: 16px;
+    --bigFontSize: 18px;
+    --smallFontSize: 14px;
     --separatorHeight: 19px;
     
     --colorNotWhite: #F5F6FA;
