@@ -98,6 +98,17 @@ function viewStack(state:View[] = [], action: Action):View[] {
     return state;
 }
 
+function fetchStack(state:number = 0, action:Action):number {
+    switch(action.type) {
+        case ActionType.StartDataLoad:
+            return state+1;
+        case ActionType.DataLoadError:
+        case ActionType.DataLoaded:
+            return state-1;
+    }
+    return state;
+}
+
 export default reduceReducers(
     (state:LWState, action:Action) => {
         switch(action.type) {
@@ -122,7 +133,8 @@ export default reduceReducers(
         hasAcceptedCookies,
         stationListSelectedTab,
         stationList,
-        viewStack
+        viewStack,
+        fetchStack
     }),
     (state:LWState, action:Action) => {
         return state;

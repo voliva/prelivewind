@@ -1,14 +1,12 @@
 TODO MVP
--> Loader
--> Persist state
-    -> URL-based routing
-    -> Cleanup historic data every now and then.
+-> Translations
 -> Ads
 -> Test with connectivity issues (disconnects, etc.)
+-> Check with browsers: Which polyfills do I need?
 
 BUGS
-    -> When stations.csv is loaded after `query`, it wipes lastData
-    -> When state is inconsistent (provokes crash) it's imposible to recover
+    -> When stations.csv is loaded after `query`, it wipes lastData: Can't reproduce
+    -> When state is inconsistent (provokes crash) it's imposible to recover: Can't reproduce
 
 Optimitzacions
 -> Sembla que de universalfetch puc treure'n 6KB

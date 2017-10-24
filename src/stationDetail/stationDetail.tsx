@@ -70,10 +70,21 @@ const dataPropMap = {
 const canvasSize = calculateCanvasSize(6/5, window.innerWidth * 0.95, 400);
 class StationDetail extends Component<StationDetailProps, {}> {
     componentDidMount() {
-        this.props.loadCurrentStationData(this.props.station.id)
+        if(this.props.station)
+            this.props.loadCurrentStationData(this.props.station.id)
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if(nextProps.station && (!this.props.station ||
+            this.props.station.id != nextProps.station.id))
+            this.props.loadCurrentStationData(nextProps.station.id)
     }
 
     render(props:StationDetailProps){
+        if(!props.station) {
+            return <div></div>
+        }
+
         const nowDate = new Date();
         const now = Math.floor(nowDate.getTime() / 1000);
 

@@ -12,6 +12,7 @@ import Header from './header';
 import CookiePolicy from './cookiePolicy';
 import StationDetail from './stationDetail/stationDetail';
 import PlotDetail from './plotDetail/plotDetail';
+import Loader from './components/loader';
 
 const mapStateToProps = (state:LWState) => {
     console.log(state);
@@ -29,7 +30,8 @@ const mapStateToProps = (state:LWState) => {
         currentView: state.currentView,
         stationDetail,
         hasAcceptedCookies: state.hasAcceptedCookies,
-        viewStack: state.viewStack
+        viewStack: state.viewStack,
+        showLoader: state.fetchStack > 0
     };
 }
 
@@ -70,12 +72,12 @@ class PreLivewind extends Component<any, any> {
     componentDidMount() {
         this.props.loadAllData()
     }
-    render({currentView, stationDetail, viewStack, hasAcceptedCookies, onCookieDismiss, onBackClick, onStarClick, onDateClick}) {
+    render({currentView, stationDetail, viewStack, hasAcceptedCookies, onCookieDismiss, onBackClick, onStarClick, onDateClick, showLoader}) {
         const headerTitle = stationDetail ? stationDetail.name : 'Livewind';
         
         const cv = currentView as View;
         const starButtonState = cv.view === NavigationViewEnum.StationDetail
-            ? (stationDetail.isFavorite ? 'active' : 'default')
+            ? (stationDetail && stationDetail.isFavorite ? 'active' : 'default')
             : null;
         const onHeaderDateClick = cv.view === NavigationViewEnum.PlotDetail
             ? (dir => {
@@ -98,6 +100,7 @@ class PreLivewind extends Component<any, any> {
                 { getView(cv.view) }
             </div>
             {!hasAcceptedCookies && <CookiePolicy onDismiss={onCookieDismiss} /> }
+            {showLoader && <Loader />}
         </div>
     }
 }
@@ -111,6 +114,7 @@ const bootstrap = () => {
     </Provider>, app, splash);
 }
 
+// Promise polyfill
 if((window as any).Promise == null) {
     const s = document.createElement('script');
     document.head.appendChild(s);

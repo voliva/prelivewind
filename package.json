@@ -17,7 +17,6 @@
     "preact-redux": "^2.0.2",
     "reduce-reducers": "^0.1.2",
     "redux": "^3.7.2",
-    "redux-localstorage": "^0.4.1",
     "redux-thunk": "^2.2.0"
   },
   "devDependencies": {

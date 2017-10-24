@@ -18,7 +18,7 @@ interface PlotDetailStateProps {
     timeValue: string;
 }
 interface PlotDetailDispatchProps {
-    // loadCurrentStationData: (stationId:string) => void;
+    loadCurrentStationData: (stationId:string) => void;
 }
 interface PlotDetailProps extends PlotDetailStateProps, PlotDetailDispatchProps {
     className?: string;
@@ -45,7 +45,7 @@ const mapStateToProps = (state:LWState):PlotDetailStateProps => {
     };
 }
 const mapDispatchToProps = (dispatch:Dispatch<LWState>):PlotDetailDispatchProps => ({
-    // loadCurrentStationData: (stationId:string) => dispatch(loadCurrentStationData(stationId))
+    loadCurrentStationData: (stationId:string) => dispatch(loadCurrentStationData(stationId))
 });
 
 const headerSize = 40;
@@ -54,20 +54,22 @@ const canvasSize = calculateCanvasSize(
     (window.innerHeight - headerSize) * 0.95,
     680);
 class PlotDetail extends Component<PlotDetailProps, {}> {
-    componentDidMount() {
+    componentWillReceiveProps(nextProps) {
+        if(nextProps.station && (!this.props.station ||
+            this.props.station.id != nextProps.station.id))
+            this.props.loadCurrentStationData(nextProps.station.id)
     }
 
     render(props:PlotDetailProps){
-        console.log(props);
         return <div className={classnames('page-plot-detail', props.className)}>
             <div className='plot-detail__date'>{props.timeValue}</div>
-            <WindPlot
+            {props.station && <WindPlot
                 canvasWidth={canvasSize.width}
                 canvasHeight={canvasSize.height}
                 endTime={props.timeEnd}
                 startTime={props.timeStart}
                 data={props.station.data}
-                />
+                />}
         </div>
     }
 }

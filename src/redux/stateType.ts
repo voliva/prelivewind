@@ -7,6 +7,7 @@ interface LWState {
     hasAcceptedCookies: boolean;
     stationListSelectedTab: string;
     stationList: Station[];
+    fetchStack: number;
 }
 
 interface View {
