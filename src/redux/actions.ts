@@ -56,22 +56,25 @@ export function loadGeneralData(dataToLoad:LoadableData[]):(dispatch) => void {
                                 return obj;
                             });
                         })
-                        .then(result => dispatch(endLoad(req, result.map(d => ({
-                            id: d.Id,
-                            name: d.Nom,
-                            country: {
-                                id: d.Pais,
-                                name: d.Pais
-                            },
-                            region: {
-                                id: d.Regio,
-                                name: d.Regio
-                            },
-                            web: {
-                                name: d.Nom_Empresa,
-                                url: d.Web
-                            }
-                        })))));
+                        .then(result => dispatch(endLoad(req, result
+                            .filter(d => d.IsActive != '0')
+                            .map(d => ({
+                                id: d.Id,
+                                name: d.Nom,
+                                country: {
+                                    id: d.Pais,
+                                    name: d.Pais
+                                },
+                                region: {
+                                    id: d.Regio,
+                                    name: d.Regio
+                                },
+                                web: {
+                                    name: d.Nom_Empresa,
+                                    url: d.Web
+                                }
+                            }))
+                        )));
                     break;
                 case LoadableData.LastData:
                     fetch('https://livewind.freemyip.com/api/query?version=1&lastData=all')

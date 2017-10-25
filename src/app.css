@@ -21,4 +21,5 @@ body {
 .livewind__page {
     height: 100%;
     overflow: auto;
+    transform: translateZ(0px); /* scroll perfomance */
 }

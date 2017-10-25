@@ -123,7 +123,7 @@ class StationDetail extends Component<StationDetailProps, {}> {
                         <div class='section-cell'>{ld.value}{ld.unit}</div>
                     </div>)}
                 </div>
-            : <div>No hi ha dades recents</div>}
+            : <div style='text-align: center;'>No hi ha dades recents</div>}
 
             <Button 
                 onClick={() => props.onPlotClick(props.station.id)}

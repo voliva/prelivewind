@@ -1,6 +1,8 @@
 TODO MVP
 -> Translations
 -> Ads
+-> Station search
+    -> Pais, Regio, Estacio
 -> Test with connectivity issues (disconnects, etc.)
 -> Check with browsers: Which polyfills do I need?
 
