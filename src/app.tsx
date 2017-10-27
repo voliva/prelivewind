@@ -3,7 +3,7 @@ import { Dispatch } from 'redux';
 import { connect, Provider } from 'preact-redux';
 import StationList from './stationList/stationList';
 import store from './redux/store';
-import { acceptCookies, navigateBack, loadGeneralData, toggleFavorito, changePlotDate } from './redux/actions';
+import { acceptCookies, loadGeneralData, toggleFavorito, changePlotDate } from './redux/actions';
 import { LoadableData } from './redux/actionTypes';
 import { LWState, NavigationViewEnum, Station, View } from './redux/stateType';
 import './app.css';
@@ -30,7 +30,6 @@ const mapStateToProps = (state:LWState) => {
         currentView: state.currentView,
         stationDetail,
         hasAcceptedCookies: state.hasAcceptedCookies,
-        viewStack: state.viewStack,
         showLoader: state.fetchStack > 0
     };
 }
@@ -39,17 +38,8 @@ const mapDispatchToProps = (dispatch:Dispatch<LWState>) => ({
     onCookieDismiss: () => {
         dispatch(acceptCookies());
     },
-    onBackClick: () => {
-        dispatch(navigateBack());
-    },
-    onStarClick: (s:Station) => {
-        dispatch(toggleFavorito(s.id));
-    },
     loadAllData: () => {
         dispatch(loadGeneralData([LoadableData.Stations,LoadableData.LastData]));
-    },
-    onDateClick: (s:Station, startTime:number, endTime:number) => {
-        dispatch(changePlotDate(s.id, startTime, endTime));
     }
 });
 
@@ -72,30 +62,11 @@ class PreLivewind extends Component<any, any> {
     componentDidMount() {
         this.props.loadAllData()
     }
-    render({currentView, stationDetail, viewStack, hasAcceptedCookies, onCookieDismiss, onBackClick, onStarClick, onDateClick, showLoader}) {
-        const headerTitle = stationDetail ? stationDetail.name : 'Livewind';
-        
+    render({currentView, stationDetail, hasAcceptedCookies, onCookieDismiss, showLoader}) {
         const cv = currentView as View;
-        const starButtonState = cv.view === NavigationViewEnum.StationDetail
-            ? (stationDetail && stationDetail.isFavorite ? 'active' : 'default')
-            : null;
-        const onHeaderDateClick = cv.view === NavigationViewEnum.PlotDetail
-            ? (dir => {
-                const currentDate = cv.params.time ? new Date(cv.params.time.start * 1000) : new Date();
-                const targetDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate() + (dir === 'right' ? 1 : -1));
-                const nextDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate() + (dir === 'right' ? 2 : 0));
-                onDateClick(stationDetail, targetDate.getTime() / 1000, nextDate.getTime() / 1000);
-            })
-            : null;
     
         return <div className='livewind'>
-            <Header
-                title={headerTitle}
-                hasBackButton={viewStack.length > 0}
-                onBackClick={onBackClick}
-                starButtonState={starButtonState}
-                onStarClick={() => onStarClick(stationDetail)}
-                onDateClick={onHeaderDateClick} />
+            <Header />
             <div className='livewind__content'>
                 { getView(cv.view) }
             </div>

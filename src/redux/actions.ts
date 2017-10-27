@@ -22,6 +22,9 @@ export function switchStationListSelectedTab(tabId:string):Action {
 export function toggleFavorito(stationId:string): Action {
     return { type: ActionType.ToggleFavorito, stationId };
 }
+export function changeFilterValue(value:string): Action {
+    return { type: ActionType.FilterValueChanged, value };
+}
 
 function startLoad(dataToLoad:LoadableData): Action {
     return { type: ActionType.StartDataLoad, dataToLoad };

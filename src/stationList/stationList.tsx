@@ -17,8 +17,19 @@ interface SelectedStationsSummaryProps {
     className?: string;
 }
 
+function flattenString(str:string):string {
+    return str.toLowerCase();
+}
+
+function filterStations(stationList: Station[], filter: string):Station[] {
+    if(!filter) return stationList;
+    console.log('filter');
+    filter = flattenString(filter);
+    return stationList.filter(s => flattenString(s.name).includes(filter));
+}
+
 const mapStateToProps = (state:LWState) => ({
-    stations: state.stationList,
+    stations: filterStations(state.stationList, state.currentView.params),
     selectedTabId: state.stationListSelectedTab
 });
 

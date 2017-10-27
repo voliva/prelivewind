@@ -23,6 +23,15 @@ function currentView(state:View = null, action: Action):View {
                     }
                 }
             }
+            break;
+        case ActionType.FilterValueChanged:
+            if(state.view === NavigationViewEnum.StationList) {
+                return {
+                    view: state.view,
+                    params: action.value
+                };
+            }
+            break;
     }
     return state;
 }

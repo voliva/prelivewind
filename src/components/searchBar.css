@@ -1,0 +1,25 @@
+@import '../variables.css';
+
+.searchBar__icon {
+    /* TODO: Refer l'icone per no haver de deixar aquesta guarrada.... */
+    transform: scale(4);
+    margin-right: 10px;
+    padding-bottom: 1px;
+}
+
+.searchBar input {
+    width: 0px;
+    border: none;
+    background: var(--colorNotWhite);
+}
+.searchBar--reveal input {
+    width: 90%;
+    padding: 5px;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    margin-right: 5%;
+}
+.searchBar--reveal .searchBar__icon {
+    display: none;
+}
