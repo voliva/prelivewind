@@ -7,8 +7,9 @@ import StationLine from './stationLine';
 import TabStrip from '../components/tabStrip';
 import './stationList.css';
 import * as classnames from 'classnames';
+import { i18nService, TranslationConstants } from '../translations/index';
 
-interface SelectedStationsSummaryProps {
+interface StationListProps {
     stations: Station[],
     selectedTabId: string,
     switchSelectedTab: (tabId:string) => void;
@@ -70,7 +71,7 @@ const groupBy = function<T>(
     return ret;
 }
 
-class SelectedStationsSummary extends Component<SelectedStationsSummaryProps, {}> {
+class StationList extends Component<StationListProps, {}> {
     componentDidMount() {
         try {
             const scrollPos = JSON.parse(window.localStorage.getItem('page-station-list-scroll'));
@@ -79,18 +80,18 @@ class SelectedStationsSummary extends Component<SelectedStationsSummaryProps, {}
         } catch(ex) {}
     }
 
-    render(props: SelectedStationsSummaryProps) {
+    render(props: StationListProps) {
         let stationList:JSX.Element[];    
         if(props.selectedTabId === 'fav') {
             stationList = props.stations
                 .filter(s => s.isFavorite)
                 .map(s => <StationLine station={s} onClick={props.onStationClick} />);
         }else {
-            const stationsGrouped = groupBy(props.stations, s => s.country.id.toString(), s => s.country.name)
+            const stationsGrouped = groupBy(props.stations, s => s.country.id.toString(), s => i18nService.translateWithDefault(TranslationConstants.country, s.country.name))
                 .map(countryGroup => ({
                     key: countryGroup.key,
                     name: countryGroup.name,
-                    value: groupBy(countryGroup.value, s => s.region.id.toString(), s => s.region.name)
+                    value: groupBy(countryGroup.value, s => s.region.id.toString(), s => i18nService.translateWithDefault(TranslationConstants.region, s.region.name))
                 }));
 
             stationList = stationsGrouped.reduce<JSX.Element[]>((list, countryGroup) => {
@@ -111,10 +112,10 @@ class SelectedStationsSummary extends Component<SelectedStationsSummaryProps, {}
 
         const tabs = [{
             id: 'all',
-            title: 'Todas'
+            title: i18nService.translate(TranslationConstants.stationListAllTab)
         },{
             id: 'fav',
-            title: 'Favoritas',
+            title: i18nService.translate(TranslationConstants.stationListFavTab),
             isDisabled: !props.stations.filter(s => s.isFavorite).length
         }];
 
@@ -128,4 +129,4 @@ class SelectedStationsSummary extends Component<SelectedStationsSummaryProps, {}
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(SelectedStationsSummary);
+export default connect(mapStateToProps, mapDispatchToProps)(StationList);

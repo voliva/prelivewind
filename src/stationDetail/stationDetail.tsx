@@ -9,6 +9,7 @@ import './stationDetail.css';
 import {arrayFind, timeToString, calculateCanvasSize} from '../utilities';
 import { loadCurrentStationData, navigate } from '../redux/actions';
 import StationData from '../services/stationData';
+import { i18nService, TranslationConstants } from '../translations/index';
 
 interface StationDetailStateProps {
     station: Station;
@@ -38,31 +39,31 @@ const mapDispatchToProps = (dispatch:Dispatch<LWState>):StationDetailDispatchPro
 
 const dataPropMap = {
     wind: {
-        translation: 'Vent',
+        translation: i18nService.translate(TranslationConstants.dataWind),
         unit: 'Knts',
     },
     gust: {
-        translation: 'Ratxa',
+        translation: i18nService.translate(TranslationConstants.dataGust),
         unit: 'Knts',
     },
     direction: {
-        translation: 'Direcció',
+        translation: i18nService.translate(TranslationConstants.dataDirection),
         unit: 'º',
     },
     temperature: {
-        translation: 'Temperatura',
+        translation: i18nService.translate(TranslationConstants.dataTemperature),
         unit: 'ºC',
     },
     humidity: {
-        translation: 'Humitat',
+        translation: i18nService.translate(TranslationConstants.dataHumidity),
         unit: '%',
     },
     pressure: {
-        translation: 'Presió',
+        translation: i18nService.translate(TranslationConstants.dataPressure),
         unit: 'hPa',
     },
     rain: {
-        translation: 'Pluja',
+        translation: i18nService.translate(TranslationConstants.dataRain),
         unit: 'mm',
     }
 }
@@ -102,7 +103,7 @@ class StationDetail extends Component<StationDetailProps, {}> {
             : [];
 
         return <div className={classnames('page-station-detail', props.className)}>
-            <div class='section-title'>Últimes 24 hores</div>
+            <div class='section-title'>{i18nService.translate(TranslationConstants.stationDetailLastDay)}</div>
             <WindPlot
                 canvasWidth={canvasSize.width}
                 canvasHeight={canvasSize.height}
@@ -112,7 +113,7 @@ class StationDetail extends Component<StationDetailProps, {}> {
                 onClick={() => props.onPlotClick(props.station.id)}
                 />
             
-            <div class='section-title'>Últimes dades - { props.station.lastData ?
+            <div class='section-title'>{i18nService.translate(TranslationConstants.stationDetailLastData)} - { props.station.lastData ?
                 timeToString(new Date(props.station.lastData.timestamp*1000)) :
                 'N/A' }
             </div>
@@ -123,14 +124,14 @@ class StationDetail extends Component<StationDetailProps, {}> {
                         <div class='section-cell'>{ld.value}{ld.unit}</div>
                     </div>)}
                 </div>
-            : <div style='text-align: center;'>No hi ha dades recents</div>}
+            : <div style='text-align: center;'>{i18nService.translate(TranslationConstants.stationDetailNoData)}</div>}
 
             <Button 
                 onClick={() => props.onPlotClick(props.station.id)}
-                text='Grafic del dia' />
-            <Button 
+                text={i18nService.translate(TranslationConstants.stationDetailDailyPlotButton)} />
+            <Button
                 onClick={this.visitWeb}
-                text={props.station.web && props.station.web.name} />
+                text={props.station.web && props.station.web.name || 'www'} />
         </div>
     }
 

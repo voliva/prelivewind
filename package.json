@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "classnames": "^2.2.5",
+    "in-browser-language": "^1.0.2",
     "isomorphic-fetch": "^2.2.1",
     "preact": "^8.2.5",
     "preact-redux": "^2.0.2",

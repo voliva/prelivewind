@@ -29,7 +29,6 @@ const mapStateToProps = (state:LWState) => {
     return {
         currentView: state.currentView,
         stationDetail,
-        hasAcceptedCookies: state.hasAcceptedCookies,
         showLoader: state.fetchStack > 0
     };
 }
@@ -62,7 +61,7 @@ class PreLivewind extends Component<any, any> {
     componentDidMount() {
         this.props.loadAllData()
     }
-    render({currentView, stationDetail, hasAcceptedCookies, onCookieDismiss, showLoader}) {
+    render({currentView, stationDetail, onCookieDismiss, showLoader}) {
         const cv = currentView as View;
     
         return <div className='livewind'>
@@ -70,7 +69,6 @@ class PreLivewind extends Component<any, any> {
             <div className='livewind__content'>
                 { getView(cv.view) }
             </div>
-            {!hasAcceptedCookies && <CookiePolicy onDismiss={onCookieDismiss} /> }
             {showLoader && <Loader />}
         </div>
     }

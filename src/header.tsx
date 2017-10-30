@@ -7,6 +7,7 @@ import { LWState, NavigationViewEnum, Station, View } from './redux/stateType';
 import { Dispatch } from 'redux';
 import { connect } from 'preact-redux';
 import { navigateBack, toggleFavorito, changePlotDate, changeFilterValue } from './redux/actions';
+import { i18nService, TranslationConstants } from './translations';
 
 interface HeaderStateProps {
     hasBackButton:boolean;
@@ -87,7 +88,7 @@ class Header extends Component<HeaderProps, {searchHasFocus:boolean}> {
             props.currentView.params : null;
         const isSearching = this.state.searchHasFocus || !!searchValue;
         const title = isSearching ? null :
-            <span className='app-header__title'>{props.stationDetail ? props.stationDetail.name : 'Livewind'}</span>
+            <span className='app-header__title'>{props.stationDetail ? props.stationDetail.name : i18nService.translate(TranslationConstants.appTitle)}</span>
         const backBtn = props.hasBackButton ? <Icon type='arrowBack' className="app-header__btn" onClick={props.onBackClick} /> : null;
         const starBtn = props.currentView.view === NavigationViewEnum.StationDetail ?
             <Icon type='star' className="app-header__btn" onClick={props.onStarClick}

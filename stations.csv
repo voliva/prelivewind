@@ -49,14 +49,14 @@ Id,IsActive,Nom,Data,Web,Nom_Empresa,"Ratxa[0,1]",Latitut,Longitut,Pais,Regio
 48,1,Ciutadella,28/05/2016,http://www.meteoclimatic.net/perfil/ESIBA0700000307760A,Meteoclimatic,1,39.99472,3.83361,España,Menorca
 49,1,Mahón,28/05/2016,http://www.puertos.es/es-es/oceanografia/Paginas/portus.aspx,Puertos de España,1,39.89314,4.27037,España,Menorca
 50,1,Boya Mahón,28/05/2016,http://www.puertos.es/es-es/oceanografia/Paginas/portus.aspx,Puertos de España,1,39.71,4.42,España,Menorca
-51,1,Alcudia,28/05/2016,http://www.puertos.es/es-es/oceanografia/Paginas/portus.aspx,Puertos de España,1,39.83472,3.13908,España,Mayorca
-52,1,Es Rajoli,28/05/2016,http://www.meteodemallorca.com/,Meteo de Mallorca,1,39.63582,3.41443,España,Mayorca
-53,1,Cala Millor,28/05/2016,http://www.meteodemallorca.com/,Meteo de Mallorca,1,39.59952,3.38471,España,Mayorca
-54,1,Portopetro,28/05/2016,http://www.meteodemallorca.com/,Meteo de Mallorca,1,39.36111,3.321033,España,Mayorca
-55,1,Cala Gamba,28/05/2016,http://www.cncg.es/,CN Cala Gamba,1,39.54654,2.69422,España,Mayorca
-56,1,Palma,28/05/2016,http://www.puertos.es/es-es/oceanografia/Paginas/portus.aspx,Puertos de España,1,39.56024,2.63744,España,Mayorca
-57,1,Andratx,3/10/2012,http://www.cvpa.es/,CV Puerto de Andratx,1,39.54581,2.38317,España,Mayorca
-58,1,Boya dragonera,28/05/2016,http://www.puertos.es/es-es/oceanografia/Paginas/portus.aspx,Puertos de España,1,39.55,2.1,España,Mayorca
+51,1,Alcudia,28/05/2016,http://www.puertos.es/es-es/oceanografia/Paginas/portus.aspx,Puertos de España,1,39.83472,3.13908,España,Mallorca
+52,1,Es Rajoli,28/05/2016,http://www.meteodemallorca.com/,Meteo de Mallorca,1,39.63582,3.41443,España,Mallorca
+53,1,Cala Millor,28/05/2016,http://www.meteodemallorca.com/,Meteo de Mallorca,1,39.59952,3.38471,España,Mallorca
+54,1,Portopetro,28/05/2016,http://www.meteodemallorca.com/,Meteo de Mallorca,1,39.36111,3.321033,España,Mallorca
+55,1,Cala Gamba,28/05/2016,http://www.cncg.es/,CN Cala Gamba,1,39.54654,2.69422,España,Mallorca
+56,1,Palma,28/05/2016,http://www.puertos.es/es-es/oceanografia/Paginas/portus.aspx,Puertos de España,1,39.56024,2.63744,España,Mallorca
+57,1,Andratx,3/10/2012,http://www.cvpa.es/,CV Puerto de Andratx,1,39.54581,2.38317,España,Mallorca
+58,1,Boya dragonera,28/05/2016,http://www.puertos.es/es-es/oceanografia/Paginas/portus.aspx,Puertos de España,1,39.55,2.1,España,Mallorca
 59,1,Santa Eulalia des Riu,28/05/2016,http://www.meteoclimatic.net/perfil/ESIBA0700000207840A,Meteoclimatic,1,38.98472,1.53388,España,Ibiza
 60,1,Ibiza Puerto,28/05/2016,http://www.puertos.es/es-es/oceanografia/Paginas/portus.aspx,Puertos de España,1,38.91143,1.4495,España,Ibiza
 61,1,Ibiza Pilot,28/05/2016,http://www.weatherlink.com/user/ibizapilot,WeatherLink,1,38.90332,1.44749,España,Ibiza
