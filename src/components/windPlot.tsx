@@ -75,7 +75,7 @@ function drawAxis(context:CanvasRenderingContext2D, maxY:number, props:WindPlotP
     const ySpace = height - xAxisMargin - marginTop;
     const xSpace = width - yAxisMargin - marginRight;
 
-    const timezoneOffset = (new Date()).getTimezoneOffset() * 60;
+    const timezoneOffset = (new Date(props.startTime*1000)).getTimezoneOffset() * 60;
     const xValueStart =
         Math.floor(
             (props.startTime - timezoneOffset)

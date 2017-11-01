@@ -15,7 +15,7 @@ import PlotDetail from './plotDetail/plotDetail';
 import Loader from './components/loader';
 
 const mapStateToProps = (state:LWState) => {
-    console.log(state);
+    // console.log(state);
     let stationId = null;
     switch (state.currentView.view) {
         case NavigationViewEnum.StationDetail:

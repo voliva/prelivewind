@@ -1,5 +1,5 @@
 import { h } from 'preact';
-import './loader.css';
+// import './loader.css'; => Already included in index.html
 
 const Loader = ({}) => (
     <div class="loader">
