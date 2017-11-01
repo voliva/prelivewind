@@ -40,6 +40,16 @@ function loadError(dataToLoad:LoadableData, error:string): Action {
     return { type: ActionType.DataLoadError, error, dataToLoad };
 }
 
+let sessionId:string|number = localStorage.getItem('sessionId');
+if(sessionId) {
+    try {
+        sessionId = JSON.parse(sessionId);
+    }catch(ex) {}
+}
+if(!sessionId) {
+    sessionId = Math.floor(Math.random()*(1 << 30));
+}
+
 export function loadGeneralData(dataToLoad:LoadableData[]):(dispatch) => void {
     return (dispatch) => {
         dataToLoad.forEach(req => {
@@ -80,7 +90,7 @@ export function loadGeneralData(dataToLoad:LoadableData[]):(dispatch) => void {
                         )));
                     break;
                 case LoadableData.LastData:
-                    fetch('https://livewind.freemyip.com/api/query?version=1&lastData=all')
+                    fetch('https://livewind.freemyip.com/api/query?version=1&lastData=all&sessionId=' + sessionId)
                         .then(res => res.json())
                         .then(data => parseJSONTable(data.lastData))
                         .then(data => dispatch(endLoad(req, data)));
@@ -99,7 +109,7 @@ export function loadCurrentStationData(stationId:string):(dispatch) => void {
         dispatch(startLoad(LoadableData.Data));
         dispatch(startLoad(LoadableData.LastData));
         const now = Math.floor(new Date().getTime() / 1000);
-        fetch(`https://livewind.freemyip.com/api/query?version=1&lastData=${stationId}&windData=${stationId};${now - 60*60*24};${now}`)
+        fetch(`https://livewind.freemyip.com/api/query?version=1&lastData=${stationId}&windData=${stationId};${now - 60*60*24};${now}&sessionId=${sessionId}`)
             .then(res => res.json())
             .then(data => {
                 return {
@@ -121,7 +131,7 @@ export function changePlotDate(stationId:string, startTime:number, endTime:numbe
     return dispatch => {
         dispatch({type: ActionType.ChangePlotDate, startTime, endTime, timeValue: dateToString(new Date(startTime * 1000))});
         dispatch(startLoad(LoadableData.Data));
-        fetch(`https://livewind.freemyip.com/api/query?version=1&windData=${stationId};${startTime};${endTime}`)
+        fetch(`https://livewind.freemyip.com/api/query?version=1&windData=${stationId};${startTime};${endTime}&sessionId=${sessionId}`)
             .then(res => res.json())
             .then(data => parseJSONTable(data.windData))
             .then(data => dispatch(endLoad(LoadableData.Data, {
