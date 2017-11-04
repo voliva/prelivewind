@@ -69,3 +69,15 @@
 .separator.region {
     top: var(--separatorHeight);
 }
+.page-station-list {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.page-station-list__list,
+.page-station-list__ad {
+    flex: auto 0 0;
+}
+.page-station-list__ad {
+    max-height: 100px;
+}

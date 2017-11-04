@@ -10,6 +10,7 @@ import {arrayFind, timeToString, calculateCanvasSize} from '../utilities';
 import { loadCurrentStationData, navigate } from '../redux/actions';
 import StationData from '../services/stationData';
 import { i18nService, TranslationConstants } from '../translations/index';
+import Adsense from '../adsense';
 
 interface StationDetailStateProps {
     station: Station;
@@ -132,6 +133,9 @@ class StationDetail extends Component<StationDetailProps, {}> {
             <Button
                 onClick={this.visitWeb}
                 text={props.station.web && props.station.web.name || 'www'} />
+            <Adsense
+                    client="ca-pub-1774466693010282"
+                    slot="9320372003" />
         </div>
     }
 

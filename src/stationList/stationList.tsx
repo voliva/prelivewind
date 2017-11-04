@@ -8,6 +8,7 @@ import TabStrip from '../components/tabStrip';
 import './stationList.css';
 import * as classnames from 'classnames';
 import { i18nService, TranslationConstants } from '../translations/index';
+import Adsense from '../adsense';
 
 interface StationListProps {
     stations: Station[],
@@ -119,12 +120,22 @@ class StationList extends Component<StationListProps, {}> {
             isDisabled: !props.stations.filter(s => s.isFavorite).length
         }];
 
+        const noResults = stationList.length === 0 ? 'No hay estaciones' : null;
+
         return <div className={classnames('page-station-list', props.className)}>
-            <TabStrip
-                tabs={tabs}
-                selectedTabId={props.selectedTabId}
-                onTabSelected={props.switchSelectedTab} />
-            {stationList}
+            <div className='page-station-list__list'>
+                <TabStrip
+                    tabs={tabs}
+                    selectedTabId={props.selectedTabId}
+                    onTabSelected={props.switchSelectedTab} />
+                {stationList}
+                {noResults}
+            </div>
+            {/* <div className='page-station-list__ad'>
+                <Adsense
+                    client="ca-pub-1774466693010282"
+                    slot="2544631543" />
+            </div> */}
         </div>
     }
 }

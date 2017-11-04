@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0px;
+            background: #466789;
+            color: white;
+            font-family: sans-serif;
+        }
+        .content {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+        .logo {
+            flex: 114px 0 2;
+            height: 100%;
+            background: url('logo.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+        .ad {
+            flex: auto 1 1;
+            max-width: 420px;
+        }
+        .title {
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+        .link {
+            color: #C5C8CB
+        }
+    </style>
+</head>
+<body>
+    <div class="content" onclick="window.open('/sponsor.html')">
+        <div class="logo">
+            <!--<img src="logo.png" alt="logo" />-->
+        </div>
+        <div class="ad">
+            <div class="title">A&ntilde;ade tu anuncio aqu&iacute;</div>
+            <div class="subtitle">Livewind est&aacute; buscando patrocinador</div>
+            <div class="link">Inf&oacute;rmate aqu&iacute;</div>
+        </div>
+    </div>
+</body>
+</html>

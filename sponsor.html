@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0px;
+            background: #DDEEFF;
+            color: #030E1A;
+            font-family: sans-serif;
+        }
+        .content {
+            max-width: 600px;
+            padding: 50px;
+            margin: auto;
+            text-align: justify;
+        }
+        .title {
+            width: 100%;
+        }
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+        input[type=text],
+        input[type=email],
+        textarea {
+            display: block;
+            width: 100%;
+            padding: 5px;
+            border-radius: 5px;
+            border: 1px solid gray;
+        }
+        textarea {
+            height: 75px;
+        }
+        input[type=submit] {
+            padding: 10px 20px;
+            margin-top: 10px;
+        }
+    </style>
+    <script src='https://www.google.com/recaptcha/api.js'></script>
+    <script
+        src="https://code.jquery.com/jquery-3.2.1.min.js"
+        integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+        crossorigin="anonymous"></script>
+    <script type="application/javascript">
+        $(function(){
+            $("#sponsorForm").on('submit', function(){
+                var gRecaptchaResponse = grecaptcha.getResponse();
+                if(!gRecaptchaResponse) {
+                    alert('Valida que no eres un robot');
+                    return;
+                }
+                var company = $('#company').val();
+                    email = $('#email').val();
+                    web = $('#web').val();
+                    comments = $('#comments').val();
+                if(!company || !email || !comments) {
+                    alert('Completa los campos obligatorios');
+                    return;
+                }
+
+                $.ajax({
+                    type: "POST",
+                    // url: "http://localhost:8000/contact?subject=sponsor",
+                    url: "https://livewind.freemyip.com/api/contact?subject=sponsor",
+                    data: "company=" + encodeURIComponent(company) + "&" +
+                        "email=" + encodeURIComponent(email) + "&" +
+                        "web=" + encodeURIComponent(web) + "&" +
+                        "comments=" + encodeURIComponent(comments) + "&" +
+                        "gRecaptchaResponse=" + encodeURIComponent(gRecaptchaResponse)
+                }).done(function(status) {
+                    if(status == "ok") {
+                        $('.g-recaptcha').remove();
+                        $('input[type=submit]').prop('disabled', true);
+                        alert('Gracias por el mensaje. Nos pondremos en contacto con vosotros.');
+                    }else {
+                        console.error(status);
+                        alert('No se ha podido enviar el mensaje, intenta de nuevo más tarde.');
+                    }
+                }).fail(function(err) {
+                    console.error(err);
+                    alert('No se ha podido enviar el mensaje, intenta de nuevo más tarde.');
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="content">
+        <img class="title" src="banner.jpg" alt="logo" />
+        <h2>Esponsorizaci&oacute;n</h2>
+        <p>
+            Livewind est&aacute; buscando patrocinadores para poder sacar un rendimiento al servicio.
+            Cuenta con una base de usuarios dedicados e interesados al sector n&aacute;utico, en especial vela ligera, windsurf y kitesurf,
+            y se ofrece una segmentaci&oacute;n por pantalla de la app y lista de estaciones favoritas del visitante, lo que indica por qu&eacute; localidades
+            se mueve cada uno de los usuarios.
+        </p>
+        <p>
+            Adem&aacute;s, no se basa en un modelo de retribuciones econ&oacute;micas: Livewind busca tratos para obtener beneficio en forma
+            de pago en especie, ya sea ofreciendo productos, servicios, o descuentos exclusivos, todo en funci&oacute;n de las interacciones de los visitantes con los anuncios.
+        </p>
+        <p>Para m&aacute;s informaci&oacute;n y/o cuestiones, utilizar el siguiente formulario:</p>
+        <form id="sponsorForm" action="javascript:void(0)">
+            <label>
+                * Nombre del negocio:
+                <input id="company" type="text" required placeholder="Nombre de la empresa" />
+            </label>
+            <label>
+                Direcci&oacute;n web:
+                <input id="web" type="text" placeholder="https://www.ejemplo.com/" />
+            </label>
+            <label>
+                * Comentarios
+                <textarea id="comments" placeholder="Comentarios, dudas, qu&eacute; productos o servicios podeis ofrecer, etc."></textarea>
+            </label>
+            <label>
+                * Email:
+                <input id="email" type="email" required placeholder="Email de contacto" />
+            </label>
+            <div class="g-recaptcha" data-sitekey="6Lc8NjcUAAAAAJYziDIl-RZTsot1QSbXfAWjTfEP"></div>
+            <input type="submit" value="Enviar" />
+        </form>
+    </div>
+</body>
+</html>
