@@ -1,5 +1,4 @@
 import { View } from './stateType';
-import Station from '../services/station';
 
 enum ActionType {
     Navigation = 'Navigation',

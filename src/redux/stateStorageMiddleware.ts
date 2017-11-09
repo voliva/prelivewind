@@ -1,5 +1,4 @@
-import { Action, ActionType } from './actionTypes';
-import { NavigationViewEnum, LWState, Station } from './stateType';
+import { LWState, Station } from './stateType';
 
 const stateStorageMiddleware = store => next => action => {
     next(action);

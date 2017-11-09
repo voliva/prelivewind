@@ -1,20 +1,12 @@
-TODO MVP
--> Translations
--> Ads
--> Station search
-    -> Pais, Regio, Estacio
--> Test with connectivity issues (disconnects, etc.)
--> Check with browsers: Which polyfills do I need?
-
 BUGS
     -> When stations.csv is loaded after `query`, it wipes lastData: Can't reproduce
     -> When state is inconsistent (provokes crash) it's imposible to recover: Can't reproduce
 
-Optimitzacions
--> Sembla que de universalfetch puc treure'n 6KB
-    (o el que tingui throw new TypeError("Body not allowed for GET or HEAD requests"))
-
 TODO
+-> Versió Android
+    -> Si ho veig factible, react-native. Si no, phonegap i ja ho cambiaré.
+-> Test with connectivity issues (disconnects, etc.)
+-> Check with browsers: Which polyfills do I need?
 -> He de revisar els models:
     -> Separar serivces/models de redux/stateModel
     -> Intentar que estigui tot tipat
@@ -22,6 +14,31 @@ TODO
 -> Actualitzar dades de la finestra actual cada 5 minuts (stationList, stationDetail, plotDetail<today>)
 -> Afegir tests automàtics (e2e i unit a la reductora)
 -> Acabar Plot detail
-    -> Choose data to view (temperature, etc.)
     -> Datespan picker
        -> WindPlot multiday view
+    -> Choose data to view (temperature, etc.)
+-> Station search
+    -> Pais, Regio, Estacio (by tokens)
+-> Grafic polar + intensitat + Frequencia (Wind Rose Diagrams)
+-> Estadístiques
+-> Feedback
+-> Alertes
+-> Prediccions
+-> Mapes
+
+Optimitzacions
+-> Sembla que de universalfetch puc treure'n 6KB
+    (o el que tingui throw new TypeError("Body not allowed for GET or HEAD requests"))
+
+FEEDBACK
+[JHTP] = Ja ho tenia present
+    -> No apareix la maneta que indica "info disponible" (???)
+    -> Saber la posició dels anemòmetres (si estan a clubs, edificis, centres de meteo, etc.)
+    -> (A) Grafic polar + intensitat + Frequencia (Wind Rose Diagrams)
+    -> [JHTP] Estaria be que acumuli condicions de dies anteriors, per mesos/anuals
+    -> [JHTP] Posar una alerta quan hi hagi intensitat de vent
+
+(A): Es bona idea per estadistiques també - Fer agregat per any/mes.
+    Però l'home demana que es pugui triar lliurement el perídoe... no. No vull que se'm emportin la base de dades
+    sencera. Per això faré 2: 1 a estadístiques, i l'altre com a gràfic normal, que puguis triar el període fins a 1 setmana,
+    pero que en aquest cas les dades vindrien simplificades

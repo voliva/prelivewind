@@ -1,6 +1,5 @@
 import { ActionType, Action, LoadableData } from './actionTypes';
 import { NavigationViewEnum } from './stateType';
-import Station from '../services/station';
 import {dateToString} from '../utilities';
 import * as fetch from 'isomorphic-fetch';
 

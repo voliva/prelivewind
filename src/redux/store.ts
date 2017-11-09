@@ -1,4 +1,4 @@
-import { compose, createStore, applyMiddleware } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
 import thunkMiddleware from 'redux-thunk'
 import { LWState, NavigationViewEnum, View, Station } from './stateType';
 import livewind from './reducers';

@@ -1,4 +1,4 @@
-import { Action, ActionType } from './actionTypes';
+import { ActionType } from './actionTypes';
 import { NavigationViewEnum, LWState } from './stateType';
 
 const urlMiddleware = store => {
