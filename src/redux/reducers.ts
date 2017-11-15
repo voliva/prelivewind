@@ -32,6 +32,8 @@ function currentView(state:View = null, action: Action):View {
                 };
             }
             break;
+        case ActionType.ReplaceNavigationStack:
+            return action.currentView;
     }
     return state;
 }
@@ -104,6 +106,9 @@ function stationList(state:Station[] = null, action: Action):Station[] {
 }
 
 function viewStack(state:View[] = [], action: Action):View[] {
+    if(action.type == ActionType.ReplaceNavigationStack) {
+        return action.stack;
+    }
     return state;
 }
 

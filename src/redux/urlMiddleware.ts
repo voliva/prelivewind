@@ -1,5 +1,6 @@
 import { ActionType } from './actionTypes';
-import { NavigationViewEnum, LWState } from './stateType';
+import { replaceViewStack } from './actions';
+import { NavigationViewEnum, LWState, View } from './stateType';
 
 const urlMiddleware = store => {
     const currentPath = window.location.hash ?
@@ -9,7 +10,6 @@ const urlMiddleware = store => {
     window.history.pushState(currentPath, null, serialisePath());
 
     window.onpopstate = (evt) => {
-        console.log('popstate', evt);
         currentPath.pop();
         if(currentPath.length > 0) {
             window.history.pushState(currentPath, null, serialisePath());
@@ -19,7 +19,45 @@ const urlMiddleware = store => {
         }
     }
 return next => {
-    console.log('next');
+    window.onhashchange = (evt) => {
+        const hashValue = window.location.hash.slice(2);
+        const hashPath = hashValue.split('/');
+        let currentView:View = null;
+        const viewStack:View[] = [];
+        if(hashPath[0] == 'stations') {
+            switch(hashPath.length) {
+                case 1:
+                    currentView = {
+                        view: NavigationViewEnum.StationList
+                    };
+                    break;
+                case 2:
+                    currentView = {
+                        view: NavigationViewEnum.StationDetail,
+                        params: hashPath[1]
+                    };
+                    viewStack.push({
+                        view: NavigationViewEnum.StationList
+                    });
+                    break;
+                case 3:
+                    currentView = {
+                        view: NavigationViewEnum.PlotDetail
+                    };
+                    viewStack.push({
+                        view: NavigationViewEnum.StationList
+                    });
+                    viewStack.push({
+                        view: NavigationViewEnum.StationDetail,
+                        params: hashPath[1]
+                    });
+                    break;
+            }
+        }
+        if(store.getState().currentView.view !== currentView.view) {
+            next(replaceViewStack(currentView, viewStack));
+        }
+    }
 return action => {
     next(action);
     const state:LWState = store.getState();
@@ -45,6 +83,7 @@ return action => {
                 break;
         }
 
+        // This doesn't trigger onhashchange
         window.history.replaceState(currentPath, null, serialisePath());
     }
 }}}

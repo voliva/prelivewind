@@ -93,3 +93,4 @@ if((window as any).Promise == null) {
 }else {
     bootstrap();
 }
+// document.addEventListener('deviceready', () => bootstrap(), false);

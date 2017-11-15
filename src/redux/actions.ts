@@ -1,5 +1,5 @@
 import { ActionType, Action, LoadableData } from './actionTypes';
-import { NavigationViewEnum } from './stateType';
+import { NavigationViewEnum, View } from './stateType';
 import {dateToString} from '../utilities';
 import * as fetch from 'isomorphic-fetch';
 
@@ -23,6 +23,9 @@ export function toggleFavorito(stationId:string): Action {
 }
 export function changeFilterValue(value:string): Action {
     return { type: ActionType.FilterValueChanged, value };
+}
+export function replaceViewStack(currentView: View, stack: View[]): Action {
+    return { type: ActionType.ReplaceNavigationStack, currentView, stack };
 }
 
 function startLoad(dataToLoad:LoadableData): Action {
@@ -48,6 +51,7 @@ if(sessionId) {
 if(!sessionId) {
     sessionId = Math.floor(Math.random()*(1 << 30));
 }
+const platform = (window as any).__lwPlatform || 'N_A';
 
 export function loadGeneralData(dataToLoad:LoadableData[]):(dispatch) => void {
     return (dispatch) => {
@@ -56,8 +60,14 @@ export function loadGeneralData(dataToLoad:LoadableData[]):(dispatch) => void {
 
             switch(req) {
                 case LoadableData.Stations:
-                    fetch('/stations.csv')
-                        .then(res => res.text())
+                    fetch('https://livewind.freemyip.com/stations.csv')
+                        .then(res => {
+                            if(res.ok) {
+                                return res.text()
+                            }else {
+                                return Promise.reject(res);
+                            }
+                        })
                         .then((csv:string) => {
                             const table = parseCSV(csv);
                             const header = table[0];
@@ -70,6 +80,7 @@ export function loadGeneralData(dataToLoad:LoadableData[]):(dispatch) => void {
                         })
                         .then(result => dispatch(endLoad(req, result
                             .filter(d => d.IsActive != '0')
+                            .map(d => console.log(d) || d)
                             .map(d => ({
                                 id: d.Id,
                                 name: d.Nom,
@@ -89,7 +100,7 @@ export function loadGeneralData(dataToLoad:LoadableData[]):(dispatch) => void {
                         )));
                     break;
                 case LoadableData.LastData:
-                    fetch('https://livewind.freemyip.com/api/query?version=1&lastData=all&sessionId=' + sessionId)
+                    fetch(`https://livewind.freemyip.com/api/query?version=1&lastData=all&sessionId=${sessionId}&platform=${platform}`)
                         .then(res => res.json())
                         .then(data => parseJSONTable(data.lastData))
                         .then(data => dispatch(endLoad(req, data)));
@@ -108,7 +119,7 @@ export function loadCurrentStationData(stationId:string):(dispatch) => void {
         dispatch(startLoad(LoadableData.Data));
         dispatch(startLoad(LoadableData.LastData));
         const now = Math.floor(new Date().getTime() / 1000);
-        fetch(`https://livewind.freemyip.com/api/query?version=1&lastData=${stationId}&windData=${stationId};${now - 60*60*24};${now}&sessionId=${sessionId}`)
+        fetch(`https://livewind.freemyip.com/api/query?version=1&lastData=${stationId}&windData=${stationId};${now - 60*60*24};${now}&sessionId=${sessionId}&platform=${platform}`)
             .then(res => res.json())
             .then(data => {
                 return {
@@ -130,7 +141,7 @@ export function changePlotDate(stationId:string, startTime:number, endTime:numbe
     return dispatch => {
         dispatch({type: ActionType.ChangePlotDate, startTime, endTime, timeValue: dateToString(new Date(startTime * 1000))});
         dispatch(startLoad(LoadableData.Data));
-        fetch(`https://livewind.freemyip.com/api/query?version=1&windData=${stationId};${startTime};${endTime}&sessionId=${sessionId}`)
+        fetch(`https://livewind.freemyip.com/api/query?version=1&windData=${stationId};${startTime};${endTime}&sessionId=${sessionId}&platform=${platform}`)
             .then(res => res.json())
             .then(data => parseJSONTable(data.windData))
             .then(data => dispatch(endLoad(LoadableData.Data, {

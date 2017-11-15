@@ -36,6 +36,7 @@
 }
 .app-header .searchBar {
     flex: auto 0 0;
+    margin-right: 5px;
 }
 .app-header--searchExpanded .searchBar {
     flex: 50% 0 0;
