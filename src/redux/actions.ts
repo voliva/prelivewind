@@ -53,6 +53,18 @@ if(!sessionId) {
 }
 const platform = (window as any).__lwPlatform || 'N_A';
 
+
+const runningInDevMode = true;
+const baseUrl = runningInDevMode ? "mocks" : "https://livewind.freemyip.com";
+
+const stationsFileUrl = `${baseUrl}/stations.csv`;
+const lastDataUrl:() => string = runningInDevMode ?
+    () => `${baseUrl}/lastData.json` :
+    () => `${baseUrl}/api/query?version=1&lastData=all&sessionId=${sessionId}&platform=${platform}`;
+const stationDataUrl:(stationId:number|string, startTime:number, endTime:number) => string = runningInDevMode ?
+    (_, _2, _3) => `${baseUrl}/stationData.json` :
+    (stationId:number|string, startTime:number, endTime:number) => `${baseUrl}/api/query?version=1&lastData=${stationId}&windData=${stationId};${startTime};${endTime}&sessionId=${sessionId}&platform=${platform}`;
+
 export function loadGeneralData(dataToLoad:LoadableData[]):(dispatch) => void {
     return (dispatch) => {
         dataToLoad.forEach(req => {
@@ -60,7 +72,7 @@ export function loadGeneralData(dataToLoad:LoadableData[]):(dispatch) => void {
 
             switch(req) {
                 case LoadableData.Stations:
-                    fetch('https://livewind.freemyip.com/stations.csv')
+                    fetch(stationsFileUrl)
                         .then(res => {
                             if(res.ok) {
                                 return res.text()
@@ -100,7 +112,7 @@ export function loadGeneralData(dataToLoad:LoadableData[]):(dispatch) => void {
                         )));
                     break;
                 case LoadableData.LastData:
-                    fetch(`https://livewind.freemyip.com/api/query?version=1&lastData=all&sessionId=${sessionId}&platform=${platform}`)
+                    fetch(lastDataUrl())
                         .then(res => res.json())
                         .then(data => parseJSONTable(data.lastData))
                         .then(data => dispatch(endLoad(req, data)));
@@ -119,7 +131,7 @@ export function loadCurrentStationData(stationId:string):(dispatch) => void {
         dispatch(startLoad(LoadableData.Data));
         dispatch(startLoad(LoadableData.LastData));
         const now = Math.floor(new Date().getTime() / 1000);
-        fetch(`https://livewind.freemyip.com/api/query?version=1&lastData=${stationId}&windData=${stationId};${now - 60*60*24};${now}&sessionId=${sessionId}&platform=${platform}`)
+        fetch(stationDataUrl(stationId, now - 60*60*24, now))
             .then(res => res.json())
             .then(data => {
                 return {
@@ -141,7 +153,7 @@ export function changePlotDate(stationId:string, startTime:number, endTime:numbe
     return dispatch => {
         dispatch({type: ActionType.ChangePlotDate, startTime, endTime, timeValue: dateToString(new Date(startTime * 1000))});
         dispatch(startLoad(LoadableData.Data));
-        fetch(`https://livewind.freemyip.com/api/query?version=1&windData=${stationId};${startTime};${endTime}&sessionId=${sessionId}&platform=${platform}`)
+        fetch(stationDataUrl(stationId, startTime, endTime))
             .then(res => res.json())
             .then(data => parseJSONTable(data.windData))
             .then(data => dispatch(endLoad(LoadableData.Data, {
@@ -182,5 +194,10 @@ function parseJSONTable<T>(table:any[][]):T[] {
         const obj:T = {} as T;
         header.forEach((h,i) => obj[h] = d[i]);
         return obj;
+    }).map(d => {
+        if(runningInDevMode && (d as any).timestamp) {
+            (d as any).timestamp += (new Date().getTime() - 1518260755798) / (60 * 1000)
+        }
+        return d;
     });
 }

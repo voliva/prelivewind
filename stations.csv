@@ -10,7 +10,7 @@ Id,IsActive,Nom,Data,Web,Nom_Empresa,"Ratxa[0,1]",Latitut,Longitut,Pais,Regio
 9,0,Palamós,12/11/2012,http://www.cncostabrava.com/es/default/meteo,CN Costa Brava,1,41.842856,3.128482,España,Costa Brava
 10,1,Palamós Platja,28/05/2016,http://www.weatherlink.com/user/ellado,WeatherLink,1,41.84851,3.12417,España,Costa Brava
 11,1,St Antoni Calonge,28/05/2016,http://www.weatherlink.com/user/calongeplatjatv,WeatherLink,1,41.83916,3.09406,España,Costa Brava
-12,1,Port d'Aro,18/7/2012,http://www.clubnauticportdaro.cat/?page_id=1058,CN Port d'Aro,0,41.8020547,3.0641985,España,Costa Brava
+12,1,Port d'Aro,18/7/2012,http://www.clubnauticportdaro.cat/ca/altres-serveis/#meteo,CN Port d'Aro,0,41.8020547,3.0641985,España,Costa Brava
 13,1,Canyelles,28/05/2016,http://www.cncanyelles.com/,CN Canyelles,1,41.70418,2.88048,España,Costa Brava
 14,1,Pineda de Mar,25/6/2013,http://serveis.pinedasensefils.cat/,Pinedasensefils,1,41.6245101,2.6827579,España,Costa del Maresme
 15,1,Calella,28/05/2016,http://www.meteoclimatic.net/perfil/ESCAT0800000008370A,MeteoCalella,1,41.61416,2.66472,España,Costa del Maresme
