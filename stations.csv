@@ -106,3 +106,5 @@ Id,IsActive,Nom,Data,Web,Nom_Empresa,"Ratxa[0,1]",Latitut,Longitut,Pais,Regio
 105,0,Marbella,27/9/2013,http://www.meteopuertobanus.es/,Meteo Puerto Banus,1,36.4875,-4.9525,España,Costa del Sol
 106,1,Praia Grande,28/05/2016,http://beachcam.sapo.pt/,BeachCam Sapo,1,38.81443,-9.477,Portugal,Lisboa
 107,1,Cascais,28/05/2016,http://beachcam.sapo.pt/,BeachCam Sapo,1,38.70191,-9.40886,Portugal,Lisboa
+108,1,Aarhus,01/03/2018,https://marselisborghavn.dk/,Marselisborg Lystbådehavn,1,56.138330,10.215575,Dinamarca,Aarhus
+109,1,Egå,01/03/2018,http://www.egaa-marina.dk/,Egå Marina,1,56.207840,10.290321,Dinamarca,Aarhus
